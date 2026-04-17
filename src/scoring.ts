@@ -54,13 +54,13 @@ export function adultSubtype(
 export function subtypeLabel(s: Subtype): string {
   switch (s) {
     case "combined":
-      return "Combined presentation (inattention and hyperactivity/impulsivity)";
+      return "Mixed bag — lots of focus stuff AND buzzy/impulsive stuff";
     case "predominantly_inattentive":
-      return "Predominantly inattentive presentation";
+      return "Mostly focus / attention side";
     case "predominantly_hyperactive_impulsive":
-      return "Predominantly hyperactive–impulsive presentation";
+      return "Mostly buzzy / impulsive side";
     default:
-      return "Below typical symptom-count threshold for this period";
+      return "Under the usual symptom-count cutoff (for this threshold)";
   }
 }
 

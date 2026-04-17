@@ -20,15 +20,15 @@ import {
 import "./App.css";
 
 const STEPS = [
-  "Intro",
-  "Inattention",
-  "Inattention (peers)",
-  "Hyperactivity / impulsivity",
-  "H/I (peers)",
-  "Onset",
-  "Impairment",
-  "Other causes",
-  "Results",
+  "Hi",
+  "Focus",
+  "You vs others",
+  "Buzz & blurts",
+  "Still vs others",
+  "Way back when",
+  "Real-life mess",
+  "Other stuff?",
+  "Recap",
 ] as const;
 
 function emptyPhase(items: CriterionItem[]): PhaseAnswers {
@@ -98,14 +98,14 @@ function CriterionRow({
       <div className="code">{item.code}</div>
       <p className="title">{item.title}</p>
       <div className="phase-row">
-        <span className="phase-label">Adulthood (past ~6 months or more)</span>
+        <span className="phase-label">Grown-up you (~last 6+ months)</span>
         <YesNoToggle
           value={adult}
           onPick={(v) => onChange(item.id, "adult", v)}
         />
       </div>
       <div className="phase-row">
-        <span className="phase-label">Childhood (ages 5–12)</span>
+        <span className="phase-label">Kid you (ages 5–12)</span>
         <YesNoToggle
           value={child}
           onPick={(v) => onChange(item.id, "child", v)}
@@ -116,17 +116,17 @@ function CriterionRow({
         className="details-btn"
         onClick={() => setOpen((x) => !x)}
       >
-        {open ? "Hide examples" : "Show example behaviours (from DIVA)"}
+        {open ? "Hide examples" : "Peek at example behaviours ✨"}
       </button>
       {open && (
         <div className="examples">
-          <strong>Adulthood examples</strong>
+          <strong>Grown-up examples</strong>
           <ul>
             {item.adultExamples.map((ex) => (
               <li key={ex}>{ex}</li>
             ))}
           </ul>
-          <strong>Childhood examples</strong>
+          <strong>Kid-era examples</strong>
           <ul>
             {item.childExamples.map((ex) => (
               <li key={ex}>{ex}</li>
@@ -152,14 +152,14 @@ function YesNoToggle({
         className={value === true ? "selected-yes" : ""}
         onClick={() => onPick(true)}
       >
-        Yes
+        Yep
       </button>
       <button
         type="button"
         className={value === false ? "selected-no" : ""}
         onClick={() => onPick(false)}
       >
-        No
+        Nope
       </button>
     </div>
   );
@@ -188,19 +188,18 @@ function PeerQuestions({
 }) {
   return (
     <>
-      <h2 className="section-title">Compared with others</h2>
+      <h2 className="section-title">Compared with other people</h2>
       <p className="section-hint">
-        DIVA also asks whether these behaviours occur more often or more
-        intensely than in most peers of the same age and ability. Answer for
-        the same period as above.
+        Quick vibe check: did this stuff show up more often or more intensely
+        than for other people your age (and kinda similar smarts / situation)?
+        Same time periods as before.
       </p>
       {inattention && (
         <>
           <div className="question-block">
             <label className="prompt">
-              <strong>Inattention:</strong> Did you show more of these
-              inattentive behaviours than most adults, or more often than most
-              adults?
+              <strong>Focus / attention:</strong> as a grown-up, was this more
+              than for most adults (or more often)?
             </label>
             <div className="yesno-row">
               <button
@@ -208,21 +207,21 @@ function PeerQuestions({
                 className={valueInattA === true ? "chosen" : ""}
                 onClick={() => onInattA(true)}
               >
-                Yes
+                Yep
               </button>
               <button
                 type="button"
                 className={valueInattA === false ? "chosen" : ""}
                 onClick={() => onInattA(false)}
               >
-                No
+                Nope
               </button>
             </div>
           </div>
           <div className="question-block">
             <label className="prompt">
-              <strong>Inattention:</strong> As a child, did you show more of
-              these behaviours than most children your age, or more often?
+              <strong>Focus / attention:</strong> as a kid, more than for most
+              kids your age (or more often)?
             </label>
             <div className="yesno-row">
               <button
@@ -230,14 +229,14 @@ function PeerQuestions({
                 className={valueInattC === true ? "chosen" : ""}
                 onClick={() => onInattC(true)}
               >
-                Yes
+                Yep
               </button>
               <button
                 type="button"
                 className={valueInattC === false ? "chosen" : ""}
                 onClick={() => onInattC(false)}
               >
-                No
+                Nope
               </button>
             </div>
           </div>
@@ -247,8 +246,8 @@ function PeerQuestions({
         <>
           <div className="question-block">
             <label className="prompt">
-              <strong>Hyperactivity / impulsivity:</strong> Do you show more of
-              these behaviours than most adults, or more often?
+              <strong>Buzzy / impulsive side:</strong> now, more than for most
+              adults (or more often)?
             </label>
             <div className="yesno-row">
               <button
@@ -256,21 +255,21 @@ function PeerQuestions({
                 className={valueHiA === true ? "chosen" : ""}
                 onClick={() => onHiA(true)}
               >
-                Yes
+                Yep
               </button>
               <button
                 type="button"
                 className={valueHiA === false ? "chosen" : ""}
                 onClick={() => onHiA(false)}
               >
-                No
+                Nope
               </button>
             </div>
           </div>
           <div className="question-block">
             <label className="prompt">
-              <strong>Hyperactivity / impulsivity:</strong> As a child, did you
-              show more than most children your age, or more often?
+              <strong>Buzzy / impulsive side:</strong> as a kid, more than for
+              most kids your age (or more often)?
             </label>
             <div className="yesno-row">
               <button
@@ -278,14 +277,14 @@ function PeerQuestions({
                 className={valueHiC === true ? "chosen" : ""}
                 onClick={() => onHiC(true)}
               >
-                Yes
+                Yep
               </button>
               <button
                 type="button"
                 className={valueHiC === false ? "chosen" : ""}
                 onClick={() => onHiC(false)}
               >
-                No
+                Nope
               </button>
             </div>
           </div>
@@ -408,21 +407,21 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>DIVA-style ADHD symptom review</h1>
+        <h1>DIVA check-in</h1>
         <p className="subtitle">
-          Structured questions based on the{" "}
-          <em>Diagnostic Interview for ADHD in Adults (DIVA)</em> and DSM-IV
-          criteria. English interface; not a substitute for clinical assessment.
+          Loosely based on the grown-up ADHD interview{" "}
+          <em>(DIVA)</em> + old-school DSM-IV ideas — just a cozy English walkthrough,
+          not a doctor visit.
         </p>
       </header>
 
       {step === 0 && (
         <div className="disclaimer">
           <p>
-            <strong>Not a diagnosis.</strong> This app is for education and
-            self-reflection only. ADHD assessment requires a qualified clinician,
-            collateral history where possible, and consideration of other
-            conditions. Official materials and updates:{" "}
+            <strong>Heads up: not a diagnosis.</strong> This is for curiosity and
+            learning about yourself. Real ADHD assessment = actual human
+            professional, sometimes family/school stories, ruling other stuff out.
+            Official DIVA things live at{" "}
             <a
               href="https://www.divacenter.eu"
               target="_blank"
@@ -433,14 +432,14 @@ export default function App() {
             .
           </p>
           <p style={{ marginBottom: 0 }}>
-            Answer each criterion for <strong>adulthood</strong> (roughly the
-            last six months or more) and for <strong>childhood</strong> (ages
-            5–12), as in the paper DIVA interview.
+            For each item, tap how it fits <strong>grown-up you</strong> (think
+            last ~6 months-ish) and <strong>kid you</strong> (ages 5–12), same as
+            the paper interview flow.
           </p>
         </div>
       )}
 
-      <nav className="step-nav" aria-label="Progress">
+      <nav className="step-nav" aria-label="Where you are in the quiz">
         {STEPS.map((label, i) => (
           <span
             key={label}
@@ -453,21 +452,19 @@ export default function App() {
 
       {step === 0 && (
         <section>
-          <h2 className="section-title">Before you begin</h2>
+          <h2 className="section-title">So what happens here?</h2>
           <p className="section-hint">
-            You will go through inattention items (9), hyperactivity–impulsivity
-            items (9), brief questions on onset and life impairment, and a
-            reminder about other mental health conditions. At the end you will
-            see a summary aligned with the DIVA scoring sheet (symptom counts and
-            DSM-IV-style presentation labels).
+            Nine “focus brain” items, nine “buzzy / blurty” ones, a few questions
+            about how long it’s been going on and where life got messy, then a
+            chill recap with counts (like the DIVA score sheet vibes, but pink).
           </p>
         </section>
       )}
 
       {step === 1 && (
         <SymptomStep
-          title="Part 1 — Inattention (DSM-IV criterion A1)"
-          hint="Mark Yes only if the pattern is chronic rather than short-lived, and more frequent or intense than expected for people of similar age and ability, or clearly linked to impairment."
+          title="Part 1 — Focus & attention slip-ups"
+          hint="Tap Yep if it’s been a long-running thing (not just a stressed week), happens more than for similar people your age, or really messes with life. Otherwise Nope is totally fine."
           items={INATTENTION}
           answers={inatt}
           onChange={(id, ph, v) => setPhase(setInatt, id, ph, v)}
@@ -490,8 +487,8 @@ export default function App() {
 
       {step === 3 && (
         <SymptomStep
-          title="Part 2 — Hyperactivity / impulsivity (DSM-IV criterion A2)"
-          hint="Same rules: chronic pattern; compare frequency and intensity to peers; Yes if clearly present."
+          title="Part 2 — Buzzy body & impulsive moments"
+          hint="Same vibe: ongoing pattern, more than peers, or actually causes problems → Yep. Otherwise Nope."
           items={HYPERACTIVITY_IMPULSIVITY}
           answers={hi}
           onChange={(id, ph, v) => setPhase(setHi, id, ph, v)}
@@ -514,15 +511,15 @@ export default function App() {
 
       {step === 5 && (
         <section>
-          <h2 className="section-title">Onset and course (DSM-IV criterion B)</h2>
+          <h2 className="section-title">Way back when — how long has this been a thing?</h2>
           <p className="section-hint">
-            Have these kinds of symptoms been present for most of your life, with
-            some signs clearly before age 7 (as required by DSM-IV for ADHD)?
+            Old DSM-IV cared a lot about “since childhood” and hints before age 7.
+            We’re not judging — just mapping what it felt like for you.
           </p>
           <div className="question-block">
             <label className="prompt">
-              Would you say you had a lifelong pattern, with several symptoms
-              already before age 7?
+              Does it feel like this has been with you most of your life, with
+              several signs already before age 7?
             </label>
             <div className="yesno-row">
               <button
@@ -532,7 +529,7 @@ export default function App() {
                   setOnset((o) => ({ ...o, lifelongPattern: true }))
                 }
               >
-                Yes
+                Yeah, pretty much
               </button>
               <button
                 type="button"
@@ -541,15 +538,15 @@ export default function App() {
                   setOnset((o) => ({ ...o, lifelongPattern: false }))
                 }
               >
-                No / unsure
+                Nah / not really sure
               </button>
             </div>
           </div>
           {onset.lifelongPattern === false && (
             <div className="question-block">
               <label className="prompt">
-                If symptoms started mainly later, at what age did they begin to
-                affect you in a clear, ongoing way? (approximate is fine)
+                If it kicked in later, when do you think it started sticking around
+                in a real way? Ballpark is fine.
               </label>
               <input
                 className="text-input"
@@ -557,7 +554,7 @@ export default function App() {
                 onChange={(e) =>
                   setOnset((o) => ({ ...o, onsetAgeNote: e.target.value }))
                 }
-                placeholder="e.g. around 12, or after starting university"
+                placeholder="e.g. ~12, uni, first job…"
               />
             </div>
           )}
@@ -566,19 +563,16 @@ export default function App() {
 
       {step === 6 && (
         <section>
-          <h2 className="section-title">
-            Impairment across life areas (DSM-IV criteria C and D)
-          </h2>
+          <h2 className="section-title">Where did it actually make life wobbly?</h2>
           <p className="section-hint">
-            DIVA checks whether problems linked to these symptoms caused clear
-            difficulties in at least two areas (for example work or study,
-            family, social life, leisure, self-esteem). Answer separately for
-            adulthood and childhood.
+            Think work/school, home, friends, hobbies, how you feel about yourself
+            — DIVA-style, we’re asking if stuff spilled into{" "}
+            <em>two or more</em> big areas. No shame either way.
           </p>
           <div className="question-block">
             <label className="prompt">
-              <strong>Adulthood:</strong> Have these symptoms been linked to
-              meaningful problems in <em>two or more</em> major life areas?
+              <strong>Grown-up era:</strong> did this pattern tie to real problems
+              in <em>two or more</em> major life corners?
             </label>
             <div className="yesno-row">
               <button
@@ -593,7 +587,7 @@ export default function App() {
                   }))
                 }
               >
-                Yes
+                Yep
               </button>
               <button
                 type="button"
@@ -607,15 +601,15 @@ export default function App() {
                   }))
                 }
               >
-                No
+                Nope
               </button>
             </div>
           </div>
           <div className="question-block">
             <label className="prompt">
-              <strong>Childhood:</strong> Did these kinds of problems show up in{" "}
-              <em>two or more</em> important areas (school, family, friends,
-              hobbies, self-esteem)?
+              <strong>Kid era:</strong> did similar mess show up in{" "}
+              <em>two or more</em> important places (school, family, friends,
+              hobbies, confidence)?
             </label>
             <div className="yesno-row">
               <button
@@ -630,7 +624,7 @@ export default function App() {
                   }))
                 }
               >
-                Yes
+                Yep
               </button>
               <button
                 type="button"
@@ -644,7 +638,7 @@ export default function App() {
                   }))
                 }
               >
-                No
+                Nope
               </button>
             </div>
           </div>
@@ -653,17 +647,16 @@ export default function App() {
 
       {step === 7 && (
         <section>
-          <h2 className="section-title">Other explanations (DSM-IV criterion E)</h2>
+          <h2 className="section-title">Could something else be the main character?</h2>
           <p className="section-hint">
-            Symptoms must not be better accounted for by another psychiatric
-            disorder (for example severe depression, bipolar disorder, anxiety
-            disorder, substance use, or another condition). This is a rough
-            self-check only.
+            Super rough gut check: sometimes depression, anxiety, bipolar, sleep,
+            substances, etc. can look like ADHD. Clinicians sort that out properly;
+            we’re just asking what <em>you</em> think from the inside.
           </p>
           <div className="question-block">
             <label className="prompt">
-              Do you believe another mental health condition fully explains these
-              difficulties better than ADHD would?
+              Does it feel like <strong>another</strong> mental health thing
+              explains your struggles way better than ADHD vibes would?
             </label>
             <div className="yesno-row">
               <button
@@ -677,7 +670,7 @@ export default function App() {
                   setCriterionE({ betterExplainedByOtherDisorder: true })
                 }
               >
-                Yes
+                Yeah, mostly
               </button>
               <button
                 type="button"
@@ -690,7 +683,7 @@ export default function App() {
                   setCriterionE({ betterExplainedByOtherDisorder: false })
                 }
               >
-                No / unsure
+                Nah / not sure
               </button>
             </div>
           </div>
@@ -700,85 +693,86 @@ export default function App() {
       {showResults && (
         <section>
           <div className="results-hero">
-            <h2>Your summary</h2>
+            <h2>Your lil recap</h2>
             <p style={{ color: "var(--muted)", margin: 0, fontSize: "0.95rem" }}>
-              Symptom counts only — interpretation belongs with a clinician.
+              Numbers for fun + self-understanding — a pro still owns the actual
+              diagnosis chat.
             </p>
             {onset.lifelongPattern === true && (
               <p style={{ margin: "0.75rem 0 0", fontSize: "0.9rem" }}>
-                Onset: you indicated a <strong>lifelong</strong> pattern with
-                signs before age 7 (DSM-IV style).
+                Timeline: you said this feels <strong>pretty lifelong</strong>,
+                with signs hanging around before age 7.
               </p>
             )}
             {onset.lifelongPattern === false && (
               <p style={{ margin: "0.75rem 0 0", fontSize: "0.9rem" }}>
-                Onset: you indicated symptoms may <strong>not</strong> fit a
-                clear lifelong pattern before age 7.
+                Timeline: you said it might <strong>not</strong> be a neat
+                “since tiny kid” story before age 7.
                 {onset.onsetAgeNote.trim() ? (
                   <>
                     {" "}
-                    Note: <em>{onset.onsetAgeNote.trim()}</em>
+                    You wrote: <em>{onset.onsetAgeNote.trim()}</em>
                   </>
                 ) : null}{" "}
-                A clinician would explore developmental history in more detail.
+                Totally normal — clinicians dig into this more gently in person.
               </p>
             )}
           </div>
 
           <div className="results-grid two" style={{ marginBottom: "1rem" }}>
             <div className="stat-card">
-              <h3>Inattention — childhood</h3>
+              <h3>Focus stuff — kid era</h3>
               <div className="big">
                 {summary.inattChild} / 9
               </div>
               <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                Threshold in DIVA / DSM-IV child: ≥{THRESHOLD_CHILD}
+                Kid-era cutoff on the form: ≥{THRESHOLD_CHILD} in a domain
               </p>
             </div>
             <div className="stat-card">
-              <h3>Inattention — adult</h3>
+              <h3>Focus stuff — grown-up era</h3>
               <div className="big">
                 {summary.inattAdult} / 9
               </div>
               <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                DIVA form threshold: ≥{THRESHOLD_ADULT_FORM} (research often uses
-                ≥{THRESHOLD_ADULT_RESEARCH})
+                Paper form says ≥{THRESHOLD_ADULT_FORM}; some studies use ≥
+                {THRESHOLD_ADULT_RESEARCH}
               </p>
             </div>
             <div className="stat-card">
-              <h3>Hyperactivity / impulsivity — childhood</h3>
+              <h3>Buzzy / impulsive — kid era</h3>
               <div className="big">
                 {summary.hiChild} / 9
               </div>
               <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                Threshold: ≥{THRESHOLD_CHILD}
+                Kid-era cutoff: ≥{THRESHOLD_CHILD}
               </p>
             </div>
             <div className="stat-card">
-              <h3>Hyperactivity / impulsivity — adult</h3>
+              <h3>Buzzy / impulsive — grown-up era</h3>
               <div className="big">
                 {summary.hiAdult} / 9
               </div>
               <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                DIVA form: ≥{THRESHOLD_ADULT_FORM}; research: ≥
+                Form: ≥{THRESHOLD_ADULT_FORM} · softer research bar: ≥
                 {THRESHOLD_ADULT_RESEARCH}
               </p>
             </div>
           </div>
 
           <div className="stat-card" style={{ marginBottom: "1rem" }}>
-            <h3>Compared with peers (your answers)</h3>
+            <h3>You vs other people (what you tapped)</h3>
             <ul className="checklist">
               <li>
                 <span className="mark ok">•</span>
                 <span>
-                  Inattention vs peers — adult:{" "}
+                  Focus vs others — grown-up:{" "}
                   {moreInattAdult === null
                     ? "—"
                     : moreInattAdult
                       ? "more / more often"
                       : "not more"}
-                  ; childhood:{" "}
+                  ; kid:{" "}
                   {moreInattChild === null
                     ? "—"
                     : moreInattChild
@@ -789,13 +783,13 @@ export default function App() {
               <li>
                 <span className="mark ok">•</span>
                 <span>
-                  Hyperactivity / impulsivity vs peers — adult:{" "}
+                  Buzzy side vs others — grown-up:{" "}
                   {moreHiAdult === null
                     ? "—"
                     : moreHiAdult
                       ? "more / more often"
                       : "not more"}
-                  ; childhood:{" "}
+                  ; kid:{" "}
                   {moreHiChild === null
                     ? "—"
                     : moreHiChild
@@ -807,29 +801,27 @@ export default function App() {
           </div>
 
           <div className="stat-card" style={{ marginBottom: "1rem" }}>
-            <h3>Adult presentation (by symptom count)</h3>
+            <h3>Grown-up “flavour” from symptom counts</h3>
             <p style={{ margin: "0 0 0.5rem", fontSize: "0.95rem" }}>
-              Using ≥{THRESHOLD_ADULT_FORM} per domain:{" "}
+              Strict-ish form cutoff (≥{THRESHOLD_ADULT_FORM} per domain):{" "}
               <strong>{subtypeLabel(summary.subtypeAdultForm)}</strong>
             </p>
             <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--muted)" }}>
-              Using ≥{THRESHOLD_ADULT_RESEARCH} per domain (research suggestion in
-              DIVA materials):{" "}
+              Softer research-style cutoff (≥{THRESHOLD_ADULT_RESEARCH}):{" "}
               <strong>{subtypeLabel(summary.subtypeAdultResearch)}</strong>
             </p>
           </div>
 
           <div className="stat-card">
-            <h3>Checklist style overview</h3>
+            <h3>Big-picture checklist</h3>
             <ul className="checklist">
               <li>
                 <span className={`mark ${summary.childMeetsA ? "ok" : "bad"}`}>
                   {markChar(summary.childMeetsA)}
                 </span>
                 <span>
-                  Childhood: six or more symptoms in the inattention list and/or
-                  six or more in the hyperactivity–impulsivity list (your counts:
-                  inattention {summary.inattChild}, H/I {summary.hiChild})
+                  Kid era: six+ on the focus list and/or six+ on the buzzy list
+                  (you: focus {summary.inattChild}, buzzy {summary.hiChild})
                 </span>
               </li>
               <li>
@@ -841,8 +833,8 @@ export default function App() {
                   {markChar(summary.adultMeetsAForm)}
                 </span>
                 <span>
-                  Adulthood (DIVA form threshold): at least six in one domain
-                  (inattention {summary.inattAdult}, H/I {summary.hiAdult})
+                  Grown-up era (form threshold): six+ in at least one domain
+                  (focus {summary.inattAdult}, buzzy {summary.hiAdult})
                 </span>
               </li>
               <li>
@@ -854,8 +846,8 @@ export default function App() {
                   {markChar(summary.adultMeetsAResearch)}
                 </span>
                 <span>
-                  Adulthood (research threshold ≥{THRESHOLD_ADULT_RESEARCH} per
-                  domain, informational)
+                  Grown-up era (research-y threshold ≥{THRESHOLD_ADULT_RESEARCH},
+                  FYI only)
                 </span>
               </li>
               <li>
@@ -875,7 +867,7 @@ export default function App() {
                 >
                   {markChar(summary.adultImpairmentTwoDomains)}
                 </span>
-                <span>Adulthood: impairment in ≥2 life areas</span>
+                <span>Grown-up: rough patches in ≥2 big life areas</span>
               </li>
               <li>
                 <span
@@ -885,21 +877,16 @@ export default function App() {
                 >
                   {markChar(summary.childImpairmentTwoDomains)}
                 </span>
-                <span>Childhood: impairment in ≥2 life areas</span>
+                <span>Kid era: rough patches in ≥2 big life areas</span>
               </li>
               <li>
-                <span
-                  className={`mark ${markClass(
-                    summary.criterionEOk,
-                    true
-                  )}`}
-                >
-                  {markChar(summary.criterionEOk, true)}
+                <span className={`mark ${markClass(summary.criterionEOk)}`}>
+                  {markChar(summary.criterionEOk)}
                 </span>
                 <span>
-                  Symptoms not fully better explained by another disorder (your
-                  self-check; ✓ means you answered &quot;No / unsure&quot; to
-                  other disorder fully explaining things)
+                  You didn’t say another condition is the <em>main</em> explanation
+                  (you picked <em>Nah / not sure</em>) — ✓ = that’s consistent with
+                  the usual scoring-sheet friendly answer
                 </span>
               </li>
             </ul>
@@ -907,10 +894,9 @@ export default function App() {
 
           <div className="disclaimer" style={{ marginTop: "1.5rem" }}>
             <p style={{ marginTop: 0 }}>
-              If several items are positive, consider discussing the result with
-              a mental health professional experienced in adult ADHD. If you are
-              in crisis, contact local emergency services or a crisis line
-              immediately.
+              If a bunch of this resonated, chatting with someone who knows adult
+              ADHD can feel really validating. If you’re in crisis, please reach
+              for local emergency help or a crisis line — you matter.
             </p>
           </div>
 
@@ -934,7 +920,7 @@ export default function App() {
                 setCriterionE({ betterExplainedByOtherDisorder: null });
               }}
             >
-              Start over
+              Clear & start fresh
             </button>
           </div>
         </section>
@@ -944,7 +930,7 @@ export default function App() {
         <div className="actions">
           {step > 0 && (
             <button type="button" className="secondary" onClick={back}>
-              Back
+              Oops, back
             </button>
           )}
           <button
@@ -953,7 +939,7 @@ export default function App() {
             onClick={next}
             disabled={!canAdvance()}
           >
-            {step === 0 ? "Begin" : "Continue"}
+            {step === 0 ? "Let’s go" : "Next"}
           </button>
         </div>
       )}
@@ -961,7 +947,7 @@ export default function App() {
       {!showResults && step > 0 && (
         <p style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: "1rem" }}>
           {!canAdvance() &&
-            "Please answer every question on this page before continuing."}
+            "Tap everything on this page first — then we can roll on."}
         </p>
       )}
     </div>
