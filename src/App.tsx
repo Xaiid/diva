@@ -1,11 +1,5 @@
 import { useMemo, useState, type Dispatch, type SetStateAction } from "react";
 import {
-  FOOTNOTE_INTEREST,
-  HYPERACTIVITY_IMPULSIVITY,
-  INATTENTION,
-  type CriterionItem,
-} from "./data/divaContent";
-import {
   THRESHOLD_ADULT_FORM,
   THRESHOLD_ADULT_RESEARCH,
   THRESHOLD_CHILD,
@@ -17,19 +11,19 @@ import {
   type OnsetAnswers,
   type PhaseAnswers,
 } from "./scoring";
+import {
+  translations,
+  INATTENTION_ES,
+  HYPERACTIVITY_IMPULSIVITY_ES,
+  INATTENTION,
+  HYPERACTIVITY_IMPULSIVITY,
+  type CriterionItem,
+  type Lang,
+  type Translations,
+} from "./data/divaContent";
 import "./App.css";
 
-const STEPS = [
-  "Hi",
-  "Focus",
-  "You vs others",
-  "Buzz & blurts",
-  "Still vs others",
-  "Way back when",
-  "Real-life mess",
-  "Other stuff?",
-  "Recap",
-] as const;
+const STEPS = translations.en.steps;
 
 function emptyPhase(items: CriterionItem[]): PhaseAnswers {
   const o: PhaseAnswers = {};
@@ -47,25 +41,56 @@ function phaseComplete(answers: PhaseAnswers, items: CriterionItem[]): boolean {
   );
 }
 
+function LangNav({
+  lang,
+  onChange,
+}: {
+  lang: Lang;
+  onChange: (l: Lang) => void;
+}) {
+  return (
+    <nav className="lang-nav" aria-label="Language selector">
+      <button
+        type="button"
+        className={`lang-pill${lang === "en" ? " active" : ""}`}
+        onClick={() => onChange("en")}
+        aria-pressed={lang === "en"}
+      >
+        English
+      </button>
+      <button
+        type="button"
+        className={`lang-pill${lang === "es" ? " active" : ""}`}
+        onClick={() => onChange("es")}
+        aria-pressed={lang === "es"}
+      >
+        Español
+      </button>
+    </nav>
+  );
+}
+
 function SymptomStep({
   title,
   hint,
   items,
   answers,
   onChange,
+  t,
 }: {
   title: string;
   hint: string;
   items: CriterionItem[];
   answers: PhaseAnswers;
   onChange: (id: string, phase: "adult" | "child", value: boolean) => void;
+  t: Translations;
 }) {
   return (
     <>
       <h2 className="section-title">{title}</h2>
       <p className="section-hint">{hint}</p>
       <p className="section-hint" style={{ fontSize: "0.8rem" }}>
-        {FOOTNOTE_INTEREST}
+        {t.footnoteInterest}
       </p>
       {items.map((item) => (
         <CriterionRow
@@ -74,6 +99,7 @@ function SymptomStep({
           adult={answers[item.id]?.adult ?? null}
           child={answers[item.id]?.child ?? null}
           onChange={onChange}
+          t={t}
         />
       ))}
     </>
@@ -85,11 +111,13 @@ function CriterionRow({
   adult,
   child,
   onChange,
+  t,
 }: {
   item: CriterionItem;
   adult: boolean | null;
   child: boolean | null;
   onChange: (id: string, phase: "adult" | "child", value: boolean) => void;
+  t: Translations;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -98,17 +126,19 @@ function CriterionRow({
       <div className="code">{item.code}</div>
       <p className="title">{item.title}</p>
       <div className="phase-row">
-        <span className="phase-label">Grown-up you (~last 6+ months)</span>
+        <span className="phase-label">{t.phaseAdult}</span>
         <YesNoToggle
           value={adult}
           onPick={(v) => onChange(item.id, "adult", v)}
+          t={t}
         />
       </div>
       <div className="phase-row">
-        <span className="phase-label">Kid you (ages 5–12)</span>
+        <span className="phase-label">{t.phaseChild}</span>
         <YesNoToggle
           value={child}
           onPick={(v) => onChange(item.id, "child", v)}
+          t={t}
         />
       </div>
       <button
@@ -116,17 +146,17 @@ function CriterionRow({
         className="details-btn"
         onClick={() => setOpen((x) => !x)}
       >
-        {open ? "Hide examples" : "Peek at example behaviours ✨"}
+        {open ? t.hideExamples : t.peekExamples}
       </button>
       {open && (
         <div className="examples">
-          <strong>Grown-up examples</strong>
+          <strong>{t.adultExamplesLabel}</strong>
           <ul>
             {item.adultExamples.map((ex) => (
               <li key={ex}>{ex}</li>
             ))}
           </ul>
-          <strong>Kid-era examples</strong>
+          <strong>{t.childExamplesLabel}</strong>
           <ul>
             {item.childExamples.map((ex) => (
               <li key={ex}>{ex}</li>
@@ -141,9 +171,11 @@ function CriterionRow({
 function YesNoToggle({
   value,
   onPick,
+  t,
 }: {
   value: boolean | null;
   onPick: (v: boolean) => void;
+  t: Translations;
 }) {
   return (
     <div className="toggle-group">
@@ -152,14 +184,14 @@ function YesNoToggle({
         className={value === true ? "selected-yes" : ""}
         onClick={() => onPick(true)}
       >
-        Yep
+        {t.yep}
       </button>
       <button
         type="button"
         className={value === false ? "selected-no" : ""}
         onClick={() => onPick(false)}
       >
-        Nope
+        {t.nope}
       </button>
     </div>
   );
@@ -175,6 +207,7 @@ function PeerQuestions({
   onInattC,
   onHiA,
   onHiC,
+  t,
 }: {
   inattention: boolean;
   valueInattA: boolean | null;
@@ -185,58 +218,50 @@ function PeerQuestions({
   onInattC: (v: boolean) => void;
   onHiA: (v: boolean) => void;
   onHiC: (v: boolean) => void;
+  t: Translations;
 }) {
+  const p = t.peer;
   return (
     <>
-      <h2 className="section-title">Compared with other people</h2>
-      <p className="section-hint">
-        Quick vibe check: did this stuff show up more often or more intensely
-        than for other people your age (and kinda similar smarts / situation)?
-        Same time periods as before.
-      </p>
+      <h2 className="section-title">{p.title}</h2>
+      <p className="section-hint">{p.hint}</p>
       {inattention && (
         <>
           <div className="question-block">
-            <label className="prompt">
-              <strong>Focus / attention:</strong> as a grown-up, was this more
-              than for most adults (or more often)?
-            </label>
+            <label className="prompt">{p.inattAdult}</label>
             <div className="yesno-row">
               <button
                 type="button"
                 className={valueInattA === true ? "chosen" : ""}
                 onClick={() => onInattA(true)}
               >
-                Yep
+                {t.yep}
               </button>
               <button
                 type="button"
                 className={valueInattA === false ? "chosen" : ""}
                 onClick={() => onInattA(false)}
               >
-                Nope
+                {t.nope}
               </button>
             </div>
           </div>
           <div className="question-block">
-            <label className="prompt">
-              <strong>Focus / attention:</strong> as a kid, more than for most
-              kids your age (or more often)?
-            </label>
+            <label className="prompt">{p.inattChild}</label>
             <div className="yesno-row">
               <button
                 type="button"
                 className={valueInattC === true ? "chosen" : ""}
                 onClick={() => onInattC(true)}
               >
-                Yep
+                {t.yep}
               </button>
               <button
                 type="button"
                 className={valueInattC === false ? "chosen" : ""}
                 onClick={() => onInattC(false)}
               >
-                Nope
+                {t.nope}
               </button>
             </div>
           </div>
@@ -245,46 +270,40 @@ function PeerQuestions({
       {!inattention && (
         <>
           <div className="question-block">
-            <label className="prompt">
-              <strong>Buzzy / impulsive side:</strong> now, more than for most
-              adults (or more often)?
-            </label>
+            <label className="prompt">{p.hiAdult}</label>
             <div className="yesno-row">
               <button
                 type="button"
                 className={valueHiA === true ? "chosen" : ""}
                 onClick={() => onHiA(true)}
               >
-                Yep
+                {t.yep}
               </button>
               <button
                 type="button"
                 className={valueHiA === false ? "chosen" : ""}
                 onClick={() => onHiA(false)}
               >
-                Nope
+                {t.nope}
               </button>
             </div>
           </div>
           <div className="question-block">
-            <label className="prompt">
-              <strong>Buzzy / impulsive side:</strong> as a kid, more than for
-              most kids your age (or more often)?
-            </label>
+            <label className="prompt">{p.hiChild}</label>
             <div className="yesno-row">
               <button
                 type="button"
                 className={valueHiC === true ? "chosen" : ""}
                 onClick={() => onHiC(true)}
               >
-                Yep
+                {t.yep}
               </button>
               <button
                 type="button"
                 className={valueHiC === false ? "chosen" : ""}
                 onClick={() => onHiC(false)}
               >
-                Nope
+                {t.nope}
               </button>
             </div>
           </div>
@@ -307,6 +326,14 @@ function markClass(ok: boolean | null, invert = false): string {
 }
 
 export default function App() {
+  const [lang, setLang] = useState<Lang>("en");
+  const t = translations[lang];
+
+  const inattItems = lang === "es" ? INATTENTION_ES : INATTENTION;
+  const hiItems = lang === "es" ? HYPERACTIVITY_IMPULSIVITY_ES : HYPERACTIVITY_IMPULSIVITY;
+
+  const steps = t.steps as readonly string[];
+
   const [step, setStep] = useState(0);
   const [inatt, setInatt] = useState(() => emptyPhase(INATTENTION));
   const [hi, setHi] = useState(() => emptyPhase(HYPERACTIVITY_IMPULSIVITY));
@@ -330,8 +357,8 @@ export default function App() {
     betterExplainedByOtherDisorder: null,
   });
 
-  const inattComplete = phaseComplete(inatt, INATTENTION);
-  const hiComplete = phaseComplete(hi, HYPERACTIVITY_IMPULSIVITY);
+  const inattComplete = phaseComplete(inatt, inattItems);
+  const hiComplete = phaseComplete(hi, hiItems);
 
   const summary = useMemo(() => {
     const ic = countPresent(INATTENTION, inatt, "child");
@@ -404,24 +431,26 @@ export default function App() {
 
   const showResults = step === STEPS.length - 1;
 
+  const d = t.disclaimer;
+  const r = t.results;
+  const imp = t.impairment;
+  const ce = t.criterionE;
+  const on = t.onset;
+
   return (
     <div className="app">
+      <LangNav lang={lang} onChange={setLang} />
+
       <header className="app-header">
-        <h1>DIVA check-in</h1>
-        <p className="subtitle">
-          Loosely based on the grown-up ADHD interview{" "}
-          <em>(DIVA)</em> + old-school DSM-IV ideas — just a cozy English walkthrough,
-          not a doctor visit.
-        </p>
+        <h1>{t.header.title}</h1>
+        <p className="subtitle">{t.header.subtitle}</p>
       </header>
 
       {step === 0 && (
         <div className="disclaimer">
           <p>
-            <strong>Heads up: not a diagnosis.</strong> This is for curiosity and
-            learning about yourself. Real ADHD assessment = actual human
-            professional, sometimes family/school stories, ruling other stuff out.
-            Official DIVA things live at{" "}
+            <strong>{d.p1Before}</strong>
+            {d.p1After}{" "}
             <a
               href="https://www.divacenter.eu"
               target="_blank"
@@ -432,15 +461,14 @@ export default function App() {
             .
           </p>
           <p style={{ marginBottom: 0 }}>
-            For each item, tap how it fits <strong>grown-up you</strong> (think
-            last ~6 months-ish) and <strong>kid you</strong> (ages 5–12), same as
-            the paper interview flow.
+            {d.p2Before} <strong>{d.p2Adult}</strong> {d.p2Mid}{" "}
+            <strong>{d.p2Child}</strong> {d.p2After}
           </p>
         </div>
       )}
 
       <nav className="step-nav" aria-label="Where you are in the quiz">
-        {STEPS.map((label, i) => (
+        {steps.map((label, i) => (
           <span
             key={label}
             className={`step-pill${i === step ? " active" : ""}`}
@@ -452,22 +480,19 @@ export default function App() {
 
       {step === 0 && (
         <section>
-          <h2 className="section-title">So what happens here?</h2>
-          <p className="section-hint">
-            Nine “focus brain” items, nine “buzzy / blurty” ones, a few questions
-            about how long it’s been going on and where life got messy, then a
-            chill recap with counts (like the DIVA score sheet vibes, but pink).
-          </p>
+          <h2 className="section-title">{t.intro.title}</h2>
+          <p className="section-hint">{t.intro.hint}</p>
         </section>
       )}
 
       {step === 1 && (
         <SymptomStep
-          title="Part 1 — Focus & attention slip-ups"
-          hint="Tap Yep if it’s been a long-running thing (not just a stressed week), happens more than for similar people your age, or really messes with life. Otherwise Nope is totally fine."
-          items={INATTENTION}
+          title={t.inattentionStep.title}
+          hint={t.inattentionStep.hint}
+          items={inattItems}
           answers={inatt}
           onChange={(id, ph, v) => setPhase(setInatt, id, ph, v)}
+          t={t}
         />
       )}
 
@@ -482,16 +507,18 @@ export default function App() {
           onInattC={setMoreInattChild}
           onHiA={setMoreHiAdult}
           onHiC={setMoreHiChild}
+          t={t}
         />
       )}
 
       {step === 3 && (
         <SymptomStep
-          title="Part 2 — Buzzy body & impulsive moments"
-          hint="Same vibe: ongoing pattern, more than peers, or actually causes problems → Yep. Otherwise Nope."
-          items={HYPERACTIVITY_IMPULSIVITY}
+          title={t.hiStep.title}
+          hint={t.hiStep.hint}
+          items={hiItems}
           answers={hi}
           onChange={(id, ph, v) => setPhase(setHi, id, ph, v)}
+          t={t}
         />
       )}
 
@@ -506,21 +533,16 @@ export default function App() {
           onInattC={setMoreInattChild}
           onHiA={setMoreHiAdult}
           onHiC={setMoreHiChild}
+          t={t}
         />
       )}
 
       {step === 5 && (
         <section>
-          <h2 className="section-title">Way back when — how long has this been a thing?</h2>
-          <p className="section-hint">
-            Old DSM-IV cared a lot about “since childhood” and hints before age 7.
-            We’re not judging — just mapping what it felt like for you.
-          </p>
+          <h2 className="section-title">{on.title}</h2>
+          <p className="section-hint">{on.hint}</p>
           <div className="question-block">
-            <label className="prompt">
-              Does it feel like this has been with you most of your life, with
-              several signs already before age 7?
-            </label>
+            <label className="prompt">{on.q1}</label>
             <div className="yesno-row">
               <button
                 type="button"
@@ -529,7 +551,7 @@ export default function App() {
                   setOnset((o) => ({ ...o, lifelongPattern: true }))
                 }
               >
-                Yeah, pretty much
+                {t.yeah}
               </button>
               <button
                 type="button"
@@ -538,23 +560,20 @@ export default function App() {
                   setOnset((o) => ({ ...o, lifelongPattern: false }))
                 }
               >
-                Nah / not really sure
+                {t.nah}
               </button>
             </div>
           </div>
           {onset.lifelongPattern === false && (
             <div className="question-block">
-              <label className="prompt">
-                If it kicked in later, when do you think it started sticking around
-                in a real way? Ballpark is fine.
-              </label>
+              <label className="prompt">{on.q2}</label>
               <input
                 className="text-input"
                 value={onset.onsetAgeNote}
                 onChange={(e) =>
                   setOnset((o) => ({ ...o, onsetAgeNote: e.target.value }))
                 }
-                placeholder="e.g. ~12, uni, first job…"
+                placeholder={on.q2Placeholder}
               />
             </div>
           )}
@@ -563,16 +582,12 @@ export default function App() {
 
       {step === 6 && (
         <section>
-          <h2 className="section-title">Where did it actually make life wobbly?</h2>
-          <p className="section-hint">
-            Think work/school, home, friends, hobbies, how you feel about yourself
-            — DIVA-style, we’re asking if stuff spilled into{" "}
-            <em>two or more</em> big areas. No shame either way.
-          </p>
+          <h2 className="section-title">{imp.title}</h2>
+          <p className="section-hint">{imp.hint}</p>
           <div className="question-block">
             <label className="prompt">
-              <strong>Grown-up era:</strong> did this pattern tie to real problems
-              in <em>two or more</em> major life corners?
+              <strong>{imp.adultQBefore}</strong> {imp.adultQMid}{" "}
+              <em>{imp.adultQEm}</em> {imp.adultQAfter}
             </label>
             <div className="yesno-row">
               <button
@@ -587,7 +602,7 @@ export default function App() {
                   }))
                 }
               >
-                Yep
+                {t.yep}
               </button>
               <button
                 type="button"
@@ -601,15 +616,14 @@ export default function App() {
                   }))
                 }
               >
-                Nope
+                {t.nope}
               </button>
             </div>
           </div>
           <div className="question-block">
             <label className="prompt">
-              <strong>Kid era:</strong> did similar mess show up in{" "}
-              <em>two or more</em> important places (school, family, friends,
-              hobbies, confidence)?
+              <strong>{imp.childQBefore}</strong> {imp.childQMid}{" "}
+              <em>{imp.childQEm}</em> {imp.childQAfter}
             </label>
             <div className="yesno-row">
               <button
@@ -624,7 +638,7 @@ export default function App() {
                   }))
                 }
               >
-                Yep
+                {t.yep}
               </button>
               <button
                 type="button"
@@ -638,7 +652,7 @@ export default function App() {
                   }))
                 }
               >
-                Nope
+                {t.nope}
               </button>
             </div>
           </div>
@@ -647,16 +661,11 @@ export default function App() {
 
       {step === 7 && (
         <section>
-          <h2 className="section-title">Could something else be the main character?</h2>
-          <p className="section-hint">
-            Super rough gut check: sometimes depression, anxiety, bipolar, sleep,
-            substances, etc. can look like ADHD. Clinicians sort that out properly;
-            we’re just asking what <em>you</em> think from the inside.
-          </p>
+          <h2 className="section-title">{ce.title}</h2>
+          <p className="section-hint">{ce.hint}</p>
           <div className="question-block">
             <label className="prompt">
-              Does it feel like <strong>another</strong> mental health thing
-              explains your struggles way better than ADHD vibes would?
+              {ce.qBefore} <strong>{ce.qEm}</strong> {ce.qAfter}
             </label>
             <div className="yesno-row">
               <button
@@ -670,7 +679,7 @@ export default function App() {
                   setCriterionE({ betterExplainedByOtherDisorder: true })
                 }
               >
-                Yeah, mostly
+                {ce.yeahMostly}
               </button>
               <button
                 type="button"
@@ -683,7 +692,7 @@ export default function App() {
                   setCriterionE({ betterExplainedByOtherDisorder: false })
                 }
               >
-                Nah / not sure
+                {ce.nahNotSure}
               </button>
             </div>
           </div>
@@ -693,135 +702,125 @@ export default function App() {
       {showResults && (
         <section>
           <div className="results-hero">
-            <h2>Your lil recap</h2>
+            <h2>{r.heroTitle}</h2>
             <p style={{ color: "var(--muted)", margin: 0, fontSize: "0.95rem" }}>
-              Numbers for fun + self-understanding — a pro still owns the actual
-              diagnosis chat.
+              {r.heroSubtitle}
             </p>
             {onset.lifelongPattern === true && (
               <p style={{ margin: "0.75rem 0 0", fontSize: "0.9rem" }}>
-                Timeline: you said this feels <strong>pretty lifelong</strong>,
-                with signs hanging around before age 7.
+                {r.lifelongYes}
               </p>
             )}
             {onset.lifelongPattern === false && (
               <p style={{ margin: "0.75rem 0 0", fontSize: "0.9rem" }}>
-                Timeline: you said it might <strong>not</strong> be a neat
-                “since tiny kid” story before age 7.
+                {r.lifelongNoBefore} <strong>{r.lifelongNoEm}</strong>{" "}
+                {r.lifelongNoAfter}
                 {onset.onsetAgeNote.trim() ? (
                   <>
                     {" "}
-                    You wrote: <em>{onset.onsetAgeNote.trim()}</em>
+                    {r.lifelongNoNote} <em>{onset.onsetAgeNote.trim()}</em>
                   </>
                 ) : null}{" "}
-                Totally normal — clinicians dig into this more gently in person.
+                {r.lifelongNoEnd}
               </p>
             )}
           </div>
 
           <div className="results-grid two" style={{ marginBottom: "1rem" }}>
             <div className="stat-card">
-              <h3>Focus stuff — kid era</h3>
-              <div className="big">
-                {summary.inattChild} / 9
-              </div>
+              <h3>{r.focusKid}</h3>
+              <div className="big">{summary.inattChild} / 9</div>
               <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                Kid-era cutoff on the form: ≥{THRESHOLD_CHILD} in a domain
+                {r.kidCutoff}{THRESHOLD_CHILD}{r.inDomain}
               </p>
             </div>
             <div className="stat-card">
-              <h3>Focus stuff — grown-up era</h3>
-              <div className="big">
-                {summary.inattAdult} / 9
-              </div>
+              <h3>{r.focusAdult}</h3>
+              <div className="big">{summary.inattAdult} / 9</div>
               <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                Paper form says ≥{THRESHOLD_ADULT_FORM}; some studies use ≥
+                {r.adultCutoffPre}{THRESHOLD_ADULT_FORM}{r.adultCutoffSome}
                 {THRESHOLD_ADULT_RESEARCH}
               </p>
             </div>
             <div className="stat-card">
-              <h3>Buzzy / impulsive — kid era</h3>
-              <div className="big">
-                {summary.hiChild} / 9
-              </div>
+              <h3>{r.buzzyKid}</h3>
+              <div className="big">{summary.hiChild} / 9</div>
               <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                Kid-era cutoff: ≥{THRESHOLD_CHILD}
+                {r.buzzyKidCutoff}{THRESHOLD_CHILD}
               </p>
             </div>
             <div className="stat-card">
-              <h3>Buzzy / impulsive — grown-up era</h3>
-              <div className="big">
-                {summary.hiAdult} / 9
-              </div>
+              <h3>{r.buzzyAdult}</h3>
+              <div className="big">{summary.hiAdult} / 9</div>
               <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                Form: ≥{THRESHOLD_ADULT_FORM} · softer research bar: ≥
+                {r.buzzyAdultCutoffPre}{THRESHOLD_ADULT_FORM}{r.buzzyAdultResearch}
                 {THRESHOLD_ADULT_RESEARCH}
               </p>
             </div>
           </div>
 
           <div className="stat-card" style={{ marginBottom: "1rem" }}>
-            <h3>You vs other people (what you tapped)</h3>
+            <h3>{r.vsOthersTitle}</h3>
             <ul className="checklist">
               <li>
                 <span className="mark ok">•</span>
                 <span>
-                  Focus vs others — grown-up:{" "}
+                  {r.focusVsAdult}{" "}
                   {moreInattAdult === null
                     ? "—"
                     : moreInattAdult
-                      ? "more / more often"
-                      : "not more"}
-                  ; kid:{" "}
+                      ? r.moreOften
+                      : r.notMore}
+                  {r.focusVsChild}{" "}
                   {moreInattChild === null
                     ? "—"
                     : moreInattChild
-                      ? "more / more often"
-                      : "not more"}
+                      ? r.moreOften
+                      : r.notMore}
                 </span>
               </li>
               <li>
                 <span className="mark ok">•</span>
                 <span>
-                  Buzzy side vs others — grown-up:{" "}
+                  {r.buzzyVsAdult}{" "}
                   {moreHiAdult === null
                     ? "—"
                     : moreHiAdult
-                      ? "more / more often"
-                      : "not more"}
-                  ; kid:{" "}
+                      ? r.moreOften
+                      : r.notMore}
+                  {r.buzzyVsChild}{" "}
                   {moreHiChild === null
                     ? "—"
                     : moreHiChild
-                      ? "more / more often"
-                      : "not more"}
+                      ? r.moreOften
+                      : r.notMore}
                 </span>
               </li>
             </ul>
           </div>
 
           <div className="stat-card" style={{ marginBottom: "1rem" }}>
-            <h3>Grown-up “flavour” from symptom counts</h3>
+            <h3>{r.flavourTitle}</h3>
             <p style={{ margin: "0 0 0.5rem", fontSize: "0.95rem" }}>
-              Strict-ish form cutoff (≥{THRESHOLD_ADULT_FORM} per domain):{" "}
+              {r.flavourStrictPre}{THRESHOLD_ADULT_FORM}{r.flavourStrictEnd}{" "}
               <strong>{subtypeLabel(summary.subtypeAdultForm)}</strong>
             </p>
             <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--muted)" }}>
-              Softer research-style cutoff (≥{THRESHOLD_ADULT_RESEARCH}):{" "}
+              {r.flavourSoftPre}{THRESHOLD_ADULT_RESEARCH}{r.flavourSoftEnd}{" "}
               <strong>{subtypeLabel(summary.subtypeAdultResearch)}</strong>
             </p>
           </div>
 
           <div className="stat-card">
-            <h3>Big-picture checklist</h3>
+            <h3>{r.checklistTitle}</h3>
             <ul className="checklist">
               <li>
                 <span className={`mark ${summary.childMeetsA ? "ok" : "bad"}`}>
                   {markChar(summary.childMeetsA)}
                 </span>
                 <span>
-                  Kid era: six+ on the focus list and/or six+ on the buzzy list
-                  (you: focus {summary.inattChild}, buzzy {summary.hiChild})
+                  {r.checkKidA} {summary.inattChild}{r.checkKidABuzzy}{" "}
+                  {summary.hiChild})
                 </span>
               </li>
               <li>
@@ -833,8 +832,8 @@ export default function App() {
                   {markChar(summary.adultMeetsAForm)}
                 </span>
                 <span>
-                  Grown-up era (form threshold): six+ in at least one domain
-                  (focus {summary.inattAdult}, buzzy {summary.hiAdult})
+                  {r.checkAdultForm} {summary.inattAdult}{r.checkAdultFormBuzzy}{" "}
+                  {summary.hiAdult})
                 </span>
               </li>
               <li>
@@ -846,18 +845,15 @@ export default function App() {
                   {markChar(summary.adultMeetsAResearch)}
                 </span>
                 <span>
-                  Grown-up era (research-y threshold ≥{THRESHOLD_ADULT_RESEARCH},
-                  FYI only)
+                  {r.checkAdultResearchPre}{THRESHOLD_ADULT_RESEARCH}
+                  {r.checkAdultResearchEnd}
                 </span>
               </li>
               <li>
                 <span className={`mark ${markClass(summary.onsetOk)}`}>
                   {markChar(summary.onsetOk)}
                 </span>
-                <span>
-                  Lifelong pattern with onset before ~7 years (criterion B, as you
-                  answered)
-                </span>
+                <span>{r.checkOnset}</span>
               </li>
               <li>
                 <span
@@ -867,7 +863,7 @@ export default function App() {
                 >
                   {markChar(summary.adultImpairmentTwoDomains)}
                 </span>
-                <span>Grown-up: rough patches in ≥2 big life areas</span>
+                <span>{r.checkAdultImpairment}</span>
               </li>
               <li>
                 <span
@@ -877,27 +873,22 @@ export default function App() {
                 >
                   {markChar(summary.childImpairmentTwoDomains)}
                 </span>
-                <span>Kid era: rough patches in ≥2 big life areas</span>
+                <span>{r.checkChildImpairment}</span>
               </li>
               <li>
                 <span className={`mark ${markClass(summary.criterionEOk)}`}>
                   {markChar(summary.criterionEOk)}
                 </span>
                 <span>
-                  You didn’t say another condition is the <em>main</em> explanation
-                  (you picked <em>Nah / not sure</em>) — ✓ = that’s consistent with
-                  the usual scoring-sheet friendly answer
+                  {r.checkCriterionEBefore} <em>{r.checkCriterionEEm}</em>{" "}
+                  {r.checkCriterionEAfter}
                 </span>
               </li>
             </ul>
           </div>
 
           <div className="disclaimer" style={{ marginTop: "1.5rem" }}>
-            <p style={{ marginTop: 0 }}>
-              If a bunch of this resonated, chatting with someone who knows adult
-              ADHD can feel really validating. If you’re in crisis, please reach
-              for local emergency help or a crisis line — you matter.
-            </p>
+            <p style={{ marginTop: 0 }}>{r.closingNote}</p>
           </div>
 
           <div className="actions">
@@ -920,7 +911,7 @@ export default function App() {
                 setCriterionE({ betterExplainedByOtherDisorder: null });
               }}
             >
-              Clear & start fresh
+              {t.clearFresh}
             </button>
           </div>
         </section>
@@ -930,7 +921,7 @@ export default function App() {
         <div className="actions">
           {step > 0 && (
             <button type="button" className="secondary" onClick={back}>
-              Oops, back
+              {t.back}
             </button>
           )}
           <button
@@ -939,15 +930,14 @@ export default function App() {
             onClick={next}
             disabled={!canAdvance()}
           >
-            {step === 0 ? "Let’s go" : "Next"}
+            {step === 0 ? t.letsGo : t.next}
           </button>
         </div>
       )}
 
       {!showResults && step > 0 && (
         <p style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: "1rem" }}>
-          {!canAdvance() &&
-            "Tap everything on this page first — then we can roll on."}
+          {!canAdvance() && t.tapEverything}
         </p>
       )}
     </div>

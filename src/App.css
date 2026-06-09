@@ -1,7 +1,41 @@
 .app {
   max-width: 720px;
   margin: 0 auto;
-  padding: 1.35rem 1.1rem 4rem;
+  padding: 0 1.1rem 4rem;
+}
+
+.lang-nav {
+  display: flex;
+  gap: 0.45rem;
+  justify-content: flex-end;
+  padding: 0.75rem 0 0.65rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px dashed var(--surface-strong);
+}
+
+.lang-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--muted);
+  border: 2px solid transparent;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+  letter-spacing: 0.02em;
+}
+
+.lang-pill:hover {
+  transform: scale(1.04);
+  border-color: var(--surface-strong);
+}
+
+.lang-pill.active {
+  background: linear-gradient(135deg, #e9d5ff 0%, #fce7f3 100%);
+  color: var(--text);
+  border-color: var(--surface-strong);
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.15);
 }
 
 .app-header {
