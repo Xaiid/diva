@@ -1,19 +1,5 @@
-/** English wording aligned with DIVA 2.0 / DSM-IV-TR criteria (from source interview structure). */
-
-export type CriterionItem = {
-    id: string;
-    code: string;
-    title: string;
-    adultExamples: string[];
-    childExamples: string[];
-  };
-  
-  export type Lang = "en" | "es";
-  
-  export type Translations = Omit<typeof translations.en, "steps"> & {
-    steps: readonly string[];
-  };
-  
+import { CriterionItem } from "../components/Diva/Diva.types";
+/** English wording aligned with DIVA 2.0 / DSM-IV-TR criteria (from source interview structure). */  
   export const translations = {
     en: {
       steps: [
@@ -26,7 +12,7 @@ export type CriterionItem = {
         "Real-life mess",
         "Other stuff?",
         "Recap",
-      ] as const,
+      ],
       header: {
         title: "DIVA check-in",
         subtitle:
@@ -182,7 +168,7 @@ export type CriterionItem = {
         "Vida real",
         "\u00bfAlgo m\u00e1s?",
         "Resumen",
-      ] as const,
+      ],
       header: {
         title: "DIVA check-in",
         subtitle:

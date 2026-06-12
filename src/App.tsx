@@ -17,10 +17,9 @@ import {
   HYPERACTIVITY_IMPULSIVITY_ES,
   INATTENTION,
   HYPERACTIVITY_IMPULSIVITY,
-  type CriterionItem,
-  type Lang,
-  type Translations,
 } from "./data/divaContent";
+import { LangNav, type Lang } from "./components";
+import { CriterionItem, Translations } from "./components/Diva/Diva.types";
 import "./App.css";
 
 const STEPS = translations.en.steps;
@@ -38,35 +37,6 @@ function phaseComplete(answers: PhaseAnswers, items: CriterionItem[]): boolean {
     (i) =>
       answers[i.id]?.adult !== null &&
       answers[i.id]?.child !== null
-  );
-}
-
-function LangNav({
-  lang,
-  onChange,
-}: {
-  lang: Lang;
-  onChange: (l: Lang) => void;
-}) {
-  return (
-    <nav className="lang-nav" aria-label="Language selector">
-      <button
-        type="button"
-        className={`lang-pill${lang === "en" ? " active" : ""}`}
-        onClick={() => onChange("en")}
-        aria-pressed={lang === "en"}
-      >
-        English
-      </button>
-      <button
-        type="button"
-        className={`lang-pill${lang === "es" ? " active" : ""}`}
-        onClick={() => onChange("es")}
-        aria-pressed={lang === "es"}
-      >
-        Español
-      </button>
-    </nav>
   );
 }
 
@@ -440,7 +410,7 @@ export default function App() {
   return (
     <div className="app">
       <LangNav lang={lang} onChange={setLang} />
-
+      
       <header className="app-header">
         <h1>{t.header.title}</h1>
         <p className="subtitle">{t.header.subtitle}</p>
@@ -820,7 +790,7 @@ export default function App() {
                 </span>
                 <span>
                   {r.checkKidA} {summary.inattChild}{r.checkKidABuzzy}{" "}
-                  {summary.hiChild})
+                  {summary.hiChild}
                 </span>
               </li>
               <li>
@@ -833,7 +803,7 @@ export default function App() {
                 </span>
                 <span>
                   {r.checkAdultForm} {summary.inattAdult}{r.checkAdultFormBuzzy}{" "}
-                  {summary.hiAdult})
+                  {summary.hiAdult}
                 </span>
               </li>
               <li>
