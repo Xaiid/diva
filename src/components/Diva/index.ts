@@ -1,1 +1,1 @@
-export { type CriterionItem, type Translations } from "./Diva.types";
+export { Diva } from "./Diva";

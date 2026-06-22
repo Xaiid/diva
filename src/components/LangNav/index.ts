@@ -1,2 +1,2 @@
-export { default as LangNav } from "./LangNav";
-export { type Lang } from "./LangNav.types";
+export { LangNav } from "./LangNav";
+export type { Lang } from "./LangNav.types";

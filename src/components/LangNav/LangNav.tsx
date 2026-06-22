@@ -29,4 +29,4 @@ function LangNav({
     );
   }
 
-export default LangNav;
+export { LangNav };
