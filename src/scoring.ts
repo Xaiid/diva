@@ -51,19 +51,6 @@ export function adultSubtype(
   return "below_threshold";
 }
 
-export function subtypeLabel(s: Subtype): string {
-  switch (s) {
-    case "combined":
-      return "Mixed bag — lots of focus stuff AND buzzy/impulsive stuff";
-    case "predominantly_inattentive":
-      return "Mostly focus / attention side";
-    case "predominantly_hyperactive_impulsive":
-      return "Mostly buzzy / impulsive side";
-    default:
-      return "Under the usual symptom-count cutoff (for this threshold)";
-  }
-}
-
 export type ScoringSummary = {
   inattChild: number;
   inattAdult: number;

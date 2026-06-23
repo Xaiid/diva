@@ -1,5 +1,6 @@
-import { CriterionItem } from "../components/Diva/Diva.types";
+import { CriterionItem } from "../features/Diva/Diva.types";
 /** English wording aligned with DIVA 2.0 / DSM-IV-TR criteria (from source interview structure). */  
+
   export const translations = {
     en: {
       steps: [
@@ -133,6 +134,10 @@ import { CriterionItem } from "../components/Diva/Diva.types";
         flavourTitle: 'Grown-up "flavour" from symptom counts',
         flavourStrictPre: "Strict-ish form cutoff (\u2265",
         flavourStrictEnd: " per domain):",
+        combined: "Mixed bag — lots of focus stuff AND buzzy/impulsive stuff",
+        predominantly_inattentive: "Mostly focus / attention side",
+        predominantly_hyperactive_impulsive: "Mostly buzzy / impulsive side",
+        below_threshold: "Under the usual symptom-count cutoff (for this threshold)",
         flavourSoftPre: "Softer research-style cutoff (\u2265",
         flavourSoftEnd: "):",
         checklistTitle: "Big-picture checklist",
@@ -288,6 +293,10 @@ import { CriterionItem } from "../components/Diva/Diva.types";
         flavourTitle: '"Perfil" adulto seg\u00fan los conteos de s\u00edntomas',
         flavourStrictPre: "Umbral estricto del formulario (\u2265",
         flavourStrictEnd: " por dominio):",
+        combined: "Mezcla de cosas — mucha atenci\u00f3n y algo de inquietud / impulsividad",
+        predominantly_inattentive: "Principalmente atenci\u00f3n / atenci\u00f3n",
+        predominantly_hyperactive_impulsive: "Principalmente inquietud / impulsividad",
+        below_threshold: "Debajo del umbral usual de conteos de s\u00edntomas (para este umbral)",
         flavourSoftPre: "Umbral m\u00e1s flexible para investigaci\u00f3n (\u2265",
         flavourSoftEnd: "):",
         checklistTitle: "Lista de verificaci\u00f3n general",

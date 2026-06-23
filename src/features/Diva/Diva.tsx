@@ -17,8 +17,9 @@ import {
   INATTENTION,
   HYPERACTIVITY_IMPULSIVITY,
 } from "../../data/divaContent";
-import { LangNav, Lang } from "../LangNav";
+import { LangNav, Lang } from "../../components/LangNav";
 import { CriterionItem, type Translations } from "./Diva.types";
+import { SymptomStep } from "./components";
 import "../../App.css";
 
 const STEPS = translations.en.steps;
@@ -36,133 +37,6 @@ function phaseComplete(answers: PhaseAnswers, items: CriterionItem[]): boolean {
     (i) =>
       answers[i.id]?.adult !== null &&
       answers[i.id]?.child !== null
-  );
-}
-
-function SymptomStep({
-  title,
-  hint,
-  items,
-  answers,
-  onChange,
-  t,
-}: {
-  title: string;
-  hint: string;
-  items: CriterionItem[];
-  answers: PhaseAnswers;
-  onChange: (id: string, phase: "adult" | "child", value: boolean) => void;
-  t: Translations;
-}) {
-  return (
-    <>
-      <h2 className="section-title">{title}</h2>
-      <p className="section-hint">{hint}</p>
-      <p className="section-hint" style={{ fontSize: "0.8rem" }}>
-        {t.footnoteInterest}
-      </p>
-      {items.map((item) => (
-        <CriterionRow
-          key={item.id}
-          item={item}
-          adult={answers[item.id]?.adult ?? null}
-          child={answers[item.id]?.child ?? null}
-          onChange={onChange}
-          t={t}
-        />
-      ))}
-    </>
-  );
-}
-
-function CriterionRow({
-  item,
-  adult,
-  child,
-  onChange,
-  t,
-}: {
-  item: CriterionItem;
-  adult: boolean | null;
-  child: boolean | null;
-  onChange: (id: string, phase: "adult" | "child", value: boolean) => void;
-  t: Translations;
-}) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <article className="criterion-card">
-      <div className="code">{item.code}</div>
-      <p className="title">{item.title}</p>
-      <div className="phase-row">
-        <span className="phase-label">{t.phaseAdult}</span>
-        <YesNoToggle
-          value={adult}
-          onPick={(v) => onChange(item.id, "adult", v)}
-          t={t}
-        />
-      </div>
-      <div className="phase-row">
-        <span className="phase-label">{t.phaseChild}</span>
-        <YesNoToggle
-          value={child}
-          onPick={(v) => onChange(item.id, "child", v)}
-          t={t}
-        />
-      </div>
-      <button
-        type="button"
-        className="details-btn"
-        onClick={() => setOpen((x) => !x)}
-      >
-        {open ? t.hideExamples : t.peekExamples}
-      </button>
-      {open && (
-        <div className="examples">
-          <strong>{t.adultExamplesLabel}</strong>
-          <ul>
-            {item.adultExamples.map((ex) => (
-              <li key={ex}>{ex}</li>
-            ))}
-          </ul>
-          <strong>{t.childExamplesLabel}</strong>
-          <ul>
-            {item.childExamples.map((ex) => (
-              <li key={ex}>{ex}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </article>
-  );
-}
-
-function YesNoToggle({
-  value,
-  onPick,
-  t,
-}: {
-  value: boolean | null;
-  onPick: (v: boolean) => void;
-  t: Translations;
-}) {
-  return (
-    <div className="toggle-group">
-      <button
-        type="button"
-        className={value === true ? "selected-yes" : ""}
-        onClick={() => onPick(true)}
-      >
-        {t.yep}
-      </button>
-      <button
-        type="button"
-        className={value === false ? "selected-no" : ""}
-        onClick={() => onPick(false)}
-      >
-        {t.nope}
-      </button>
-    </div>
   );
 }
 

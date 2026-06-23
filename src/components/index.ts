@@ -1,2 +1,2 @@
 export * from "./LangNav";
-export * from "./Diva";
+export * from "../features/Diva";
