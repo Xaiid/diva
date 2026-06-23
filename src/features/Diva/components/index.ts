@@ -1,3 +1,6 @@
 export * from "./YesNoToggle";
 export * from "./CriterionRow";
 export * from "./SymptomStep";
+export * from "./PeerQuestions";
+export * from "./StepNav";
+export * from "./WelcomeStep";

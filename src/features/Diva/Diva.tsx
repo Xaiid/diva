@@ -18,8 +18,8 @@ import {
   HYPERACTIVITY_IMPULSIVITY,
 } from "../../data/divaContent";
 import { LangNav, Lang } from "../../components/LangNav";
-import { CriterionItem, type Translations } from "./Diva.types";
-import { SymptomStep } from "./components";
+import { CriterionItem } from "./Diva.types";
+import { PeerQuestions, SymptomStep, StepNav, WelcomeStep } from "./components";
 import "../../App.css";
 
 const STEPS = translations.en.steps;
@@ -37,122 +37,6 @@ function phaseComplete(answers: PhaseAnswers, items: CriterionItem[]): boolean {
     (i) =>
       answers[i.id]?.adult !== null &&
       answers[i.id]?.child !== null
-  );
-}
-
-function PeerQuestions({
-  inattention,
-  valueInattA,
-  valueInattC,
-  valueHiA,
-  valueHiC,
-  onInattA,
-  onInattC,
-  onHiA,
-  onHiC,
-  t,
-}: {
-  inattention: boolean;
-  valueInattA: boolean | null;
-  valueInattC: boolean | null;
-  valueHiA: boolean | null;
-  valueHiC: boolean | null;
-  onInattA: (v: boolean) => void;
-  onInattC: (v: boolean) => void;
-  onHiA: (v: boolean) => void;
-  onHiC: (v: boolean) => void;
-  t: Translations;
-}) {
-  const p = t.peer;
-  return (
-    <>
-      <h2 className="section-title">{p.title}</h2>
-      <p className="section-hint">{p.hint}</p>
-      {inattention && (
-        <>
-          <div className="question-block">
-            <label className="prompt">{p.inattAdult}</label>
-            <div className="yesno-row">
-              <button
-                type="button"
-                className={valueInattA === true ? "chosen" : ""}
-                onClick={() => onInattA(true)}
-              >
-                {t.yep}
-              </button>
-              <button
-                type="button"
-                className={valueInattA === false ? "chosen" : ""}
-                onClick={() => onInattA(false)}
-              >
-                {t.nope}
-              </button>
-            </div>
-          </div>
-          <div className="question-block">
-            <label className="prompt">{p.inattChild}</label>
-            <div className="yesno-row">
-              <button
-                type="button"
-                className={valueInattC === true ? "chosen" : ""}
-                onClick={() => onInattC(true)}
-              >
-                {t.yep}
-              </button>
-              <button
-                type="button"
-                className={valueInattC === false ? "chosen" : ""}
-                onClick={() => onInattC(false)}
-              >
-                {t.nope}
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-      {!inattention && (
-        <>
-          <div className="question-block">
-            <label className="prompt">{p.hiAdult}</label>
-            <div className="yesno-row">
-              <button
-                type="button"
-                className={valueHiA === true ? "chosen" : ""}
-                onClick={() => onHiA(true)}
-              >
-                {t.yep}
-              </button>
-              <button
-                type="button"
-                className={valueHiA === false ? "chosen" : ""}
-                onClick={() => onHiA(false)}
-              >
-                {t.nope}
-              </button>
-            </div>
-          </div>
-          <div className="question-block">
-            <label className="prompt">{p.hiChild}</label>
-            <div className="yesno-row">
-              <button
-                type="button"
-                className={valueHiC === true ? "chosen" : ""}
-                onClick={() => onHiC(true)}
-              >
-                {t.yep}
-              </button>
-              <button
-                type="button"
-                className={valueHiC === false ? "chosen" : ""}
-                onClick={() => onHiC(false)}
-              >
-                {t.nope}
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-    </>
   );
 }
 
@@ -274,7 +158,6 @@ function Diva() {
 
   const showResults = step === STEPS.length - 1;
 
-  const d = t.disclaimer;
   const r = t.results;
   const imp = t.impairment;
   const ce = t.criterionE;
@@ -284,42 +167,9 @@ function Diva() {
     <div className="app">
       <LangNav lang={lang} onChange={setLang} />
       
-      <header className="app-header">
-        <h1>{t.header.title}</h1>
-        <p className="subtitle">{t.header.subtitle}</p>
-      </header>
+      <WelcomeStep t={t} step={step} />
 
-      {step === 0 && (
-        <div className="disclaimer">
-          <p>
-            <strong>{d.p1Before}</strong>
-            {d.p1After}{" "}
-            <a
-              href="https://www.divacenter.eu"
-              target="_blank"
-              rel="noreferrer"
-            >
-              divacenter.eu
-            </a>
-            .
-          </p>
-          <p style={{ marginBottom: 0 }}>
-            {d.p2Before} <strong>{d.p2Adult}</strong> {d.p2Mid}{" "}
-            <strong>{d.p2Child}</strong> {d.p2After}
-          </p>
-        </div>
-      )}
-
-      <nav className="step-nav" aria-label="Where you are in the quiz">
-        {steps.map((label, i) => (
-          <span
-            key={label}
-            className={`step-pill${i === step ? " active" : ""}`}
-          >
-            {i + 1}. {label}
-          </span>
-        ))}
-      </nav>
+      <StepNav steps={Array.from(steps)} step={step} />
 
       {step === 0 && (
         <section>
