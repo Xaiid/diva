@@ -19,7 +19,13 @@ import {
 } from "../../data/divaContent";
 import { LangNav, Lang } from "../../components/LangNav";
 import { CriterionItem } from "./Diva.types";
-import { PeerQuestions, SymptomStep, StepNav, WelcomeStep } from "./components";
+import { PeerQuestions, 
+  SymptomStep, 
+  WelcomeStep, 
+  OnsetStep,
+  ImpairmentStep,
+  CriterionEStep
+ } from "./components";
 import "../../App.css";
 
 const STEPS = translations.en.steps;
@@ -58,8 +64,6 @@ function Diva() {
 
   const inattItems = lang === "es" ? INATTENTION_ES : INATTENTION;
   const hiItems = lang === "es" ? HYPERACTIVITY_IMPULSIVITY_ES : HYPERACTIVITY_IMPULSIVITY;
-
-  const steps = t.steps as readonly string[];
 
   const [step, setStep] = useState(0);
   const [inatt, setInatt] = useState(() => emptyPhase(INATTENTION));
@@ -159,24 +163,12 @@ function Diva() {
   const showResults = step === STEPS.length - 1;
 
   const r = t.results;
-  const imp = t.impairment;
-  const ce = t.criterionE;
-  const on = t.onset;
 
   return (
     <div className="app">
       <LangNav lang={lang} onChange={setLang} />
       
       <WelcomeStep t={t} step={step} />
-
-      <StepNav steps={Array.from(steps)} step={step} />
-
-      {step === 0 && (
-        <section>
-          <h2 className="section-title">{t.intro.title}</h2>
-          <p className="section-hint">{t.intro.hint}</p>
-        </section>
-      )}
 
       {step === 1 && (
         <SymptomStep
@@ -231,165 +223,27 @@ function Diva() {
       )}
 
       {step === 5 && (
-        <section>
-          <h2 className="section-title">{on.title}</h2>
-          <p className="section-hint">{on.hint}</p>
-          <div className="question-block">
-            <label className="prompt">{on.q1}</label>
-            <div className="yesno-row">
-              <button
-                type="button"
-                className={onset.lifelongPattern === true ? "chosen" : ""}
-                onClick={() =>
-                  setOnset((o) => ({ ...o, lifelongPattern: true }))
-                }
-              >
-                {t.yeah}
-              </button>
-              <button
-                type="button"
-                className={onset.lifelongPattern === false ? "chosen" : ""}
-                onClick={() =>
-                  setOnset((o) => ({ ...o, lifelongPattern: false }))
-                }
-              >
-                {t.nah}
-              </button>
-            </div>
-          </div>
-          {onset.lifelongPattern === false && (
-            <div className="question-block">
-              <label className="prompt">{on.q2}</label>
-              <input
-                className="text-input"
-                value={onset.onsetAgeNote}
-                onChange={(e) =>
-                  setOnset((o) => ({ ...o, onsetAgeNote: e.target.value }))
-                }
-                placeholder={on.q2Placeholder}
-              />
-            </div>
-          )}
-        </section>
+        <OnsetStep
+          onset={onset}
+          setOnset={setOnset}
+          t={t}
+        />
       )}
 
       {step === 6 && (
-        <section>
-          <h2 className="section-title">{imp.title}</h2>
-          <p className="section-hint">{imp.hint}</p>
-          <div className="question-block">
-            <label className="prompt">
-              <strong>{imp.adultQBefore}</strong> {imp.adultQMid}{" "}
-              <em>{imp.adultQEm}</em> {imp.adultQAfter}
-            </label>
-            <div className="yesno-row">
-              <button
-                type="button"
-                className={
-                  impairment.adultTwoOrMoreDomains === true ? "chosen" : ""
-                }
-                onClick={() =>
-                  setImpairment((i) => ({
-                    ...i,
-                    adultTwoOrMoreDomains: true,
-                  }))
-                }
-              >
-                {t.yep}
-              </button>
-              <button
-                type="button"
-                className={
-                  impairment.adultTwoOrMoreDomains === false ? "chosen" : ""
-                }
-                onClick={() =>
-                  setImpairment((i) => ({
-                    ...i,
-                    adultTwoOrMoreDomains: false,
-                  }))
-                }
-              >
-                {t.nope}
-              </button>
-            </div>
-          </div>
-          <div className="question-block">
-            <label className="prompt">
-              <strong>{imp.childQBefore}</strong> {imp.childQMid}{" "}
-              <em>{imp.childQEm}</em> {imp.childQAfter}
-            </label>
-            <div className="yesno-row">
-              <button
-                type="button"
-                className={
-                  impairment.childTwoOrMoreDomains === true ? "chosen" : ""
-                }
-                onClick={() =>
-                  setImpairment((i) => ({
-                    ...i,
-                    childTwoOrMoreDomains: true,
-                  }))
-                }
-              >
-                {t.yep}
-              </button>
-              <button
-                type="button"
-                className={
-                  impairment.childTwoOrMoreDomains === false ? "chosen" : ""
-                }
-                onClick={() =>
-                  setImpairment((i) => ({
-                    ...i,
-                    childTwoOrMoreDomains: false,
-                  }))
-                }
-              >
-                {t.nope}
-              </button>
-            </div>
-          </div>
-        </section>
+        <ImpairmentStep
+          impairment={impairment}
+          setImpairment={setImpairment}
+          t={t}
+        />
       )}
 
       {step === 7 && (
-        <section>
-          <h2 className="section-title">{ce.title}</h2>
-          <p className="section-hint">{ce.hint}</p>
-          <div className="question-block">
-            <label className="prompt">
-              {ce.qBefore} <strong>{ce.qEm}</strong> {ce.qAfter}
-            </label>
-            <div className="yesno-row">
-              <button
-                type="button"
-                className={
-                  criterionE.betterExplainedByOtherDisorder === true
-                    ? "chosen"
-                    : ""
-                }
-                onClick={() =>
-                  setCriterionE({ betterExplainedByOtherDisorder: true })
-                }
-              >
-                {ce.yeahMostly}
-              </button>
-              <button
-                type="button"
-                className={
-                  criterionE.betterExplainedByOtherDisorder === false
-                    ? "chosen"
-                    : ""
-                }
-                onClick={() =>
-                  setCriterionE({ betterExplainedByOtherDisorder: false })
-                }
-              >
-                {ce.nahNotSure}
-              </button>
-            </div>
-          </div>
-        </section>
+        <CriterionEStep
+          criterionE={criterionE}
+          setCriterionE={setCriterionE}
+          t={t}
+        />
       )}
 
       {showResults && (

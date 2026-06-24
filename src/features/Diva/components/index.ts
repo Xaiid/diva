@@ -4,3 +4,6 @@ export * from "./SymptomStep";
 export * from "./PeerQuestions";
 export * from "./StepNav";
 export * from "./WelcomeStep";
+export * from "./OnsetStep";
+export * from "./ImpairmentStep";
+export * from "./CriterionEStep";
