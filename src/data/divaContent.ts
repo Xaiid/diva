@@ -1,378 +1,1068 @@
-/** English wording aligned with DIVA 2.0 / DSM-IV-TR criteria (from source interview structure). */
+import { CriterionItem } from "../features/Diva/Diva.types";
+/** English wording aligned with DIVA 2.0 / DSM-IV-TR criteria (from source interview structure). */  
 
-export type CriterionItem = {
-  id: string;
-  code: string;
-  title: string;
-  adultExamples: string[];
-  childExamples: string[];
-};
-
-export const INATTENTION: CriterionItem[] = [
-  {
-    id: "a1",
-    code: "A1a",
-    title:
-      "Often fails to give close attention to details or makes careless mistakes in schoolwork, work, or other activities.",
-    adultExamples: [
-      "Careless mistakes",
-      "Must work more slowly to avoid mistakes",
-      "Does not read instructions carefully",
-      "Difficulty working with detail",
-      "Spends excessive time on details",
-      "Gets stuck in details",
-      "Works too fast and then makes mistakes",
-    ],
-    childExamples: [
-      "Careless mistakes in schoolwork",
-      "Mistakes from not reading questions properly",
-      "Unanswered questions because of reading difficulty",
-      "Back of test left blank",
-      "Others commented work looked careless",
-      "Did not check homework answers",
-      "Took too long on very detailed tasks",
-    ],
-  },
-  {
-    id: "a2",
-    code: "A1b",
-    title: "Often has difficulty sustaining attention in tasks or play activities.",
-    adultExamples: [
-      "Cannot sustain attention for long in tasks*",
-      "Easily distracted by own associations and thoughts",
-      "Difficulty finishing a film or reading a book*",
-      "Quickly tires of things*",
-      "Asks about topics already discussed",
-    ],
-    childExamples: [
-      "Difficulty sustaining attention in schoolwork",
-      "Difficulty sustaining attention in play*",
-      "Easily distracted",
-      "Could not concentrate well*",
-      "Needed a lot of structure to avoid distraction",
-      "Quickly tired of activities*",
-    ],
-  },
-  {
-    id: "a3",
-    code: "A1c",
-    title: "Often does not seem to listen when spoken to directly.",
-    adultExamples: [
-      "Absent or distracted",
-      "Difficulty concentrating in a conversation",
-      "After a conversation, unsure what it was about",
-      "Often changes the topic of conversation",
-      "Others often say you seem distracted",
-    ],
-    childExamples: [
-      "Did not know what parents or teachers had just said",
-      "Absent or distracted",
-      "Only listened with eye contact or raised voice",
-      "Often needed several attempts to get your attention",
-      "Questions had to be repeated several times",
-    ],
-  },
-  {
-    id: "a4",
-    code: "A1d",
-    title:
-      "Often does not follow through on instructions and fails to finish schoolwork, chores, or duties in the workplace (not due to oppositional behaviour or failure to understand instructions).",
-    adultExamples: [
-      "Does several things at once without finishing",
-      "Difficulty finishing something when it is no longer novel",
-      "Needs a deadline to finish something",
-      "Difficulty finishing administrative tasks",
-      "Difficulty following instructions",
-    ],
-    childExamples: [
-      "Difficulty following instructions",
-      "Difficulty with multi-step tasks",
-      "Did not finish things",
-      "Homework unfinished or not handed in",
-      "Needed a lot of structure to finish tasks",
-    ],
-  },
-  {
-    id: "a5",
-    code: "A1e",
-    title: "Often has difficulty organizing tasks and activities.",
-    adultExamples: [
-      "Difficulty planning daily tasks",
-      "Home and/or workplace disorganized",
-      "Over-plans or does not plan efficiently",
-      "Often double-books appointments",
-      "Often late",
-      "Cannot use a planner consistently",
-      "Rigid because routines are needed",
-      "Poor sense of time",
-      "Makes schedules but does not follow them",
-      "Needs others to structure things",
-    ],
-    childExamples: [
-      "Difficulty being ready on time",
-      "Messy room or desk",
-      "Difficulty playing independently",
-      "Difficulty planning homework",
-      "Did several things at once",
-      "Often late",
-      "Poor sense of time",
-      "Difficulty entertaining self alone",
-    ],
-  },
-  {
-    id: "a6",
-    code: "A1f",
-    title:
-      "Often avoids, dislikes, or is reluctant to engage in tasks requiring sustained mental effort (such as schoolwork or homework).",
-    adultExamples: [
-      "Tries easy or fun things first",
-      "Often puts off difficult or boring tasks",
-      "Delays tasks so deadlines are missed",
-      "Avoids monotonous work (e.g. admin)",
-      "Dislikes reading because of mental effort",
-      "Avoids tasks requiring high concentration",
-    ],
-    childExamples: [
-      "Avoided or disliked homework",
-      "Read few books; reading felt effortful",
-      "Avoided things requiring high concentration",
-      "Disliked subjects requiring high concentration",
-      "Put off difficult or boring tasks",
-    ],
-  },
-  {
-    id: "a7",
-    code: "A1g",
-    title:
-      "Often loses things necessary for tasks or activities (e.g. toys, school assignments, pencils, books, or tools).",
-    adultExamples: [
-      "Loses wallet, keys, or planner",
-      "Often leaves belongings behind",
-      "Loses work papers",
-      "Spends a lot of time looking for things",
-      "Distressed if others move your things",
-      "Stores things in inappropriate places",
-      "Loses lists, phone numbers, or notes",
-    ],
-    childExamples: [
-      "Lost planner, pens, sports bag, etc.",
-      "Lost clothes, toys, or homework",
-      "Spent a lot of time looking for things",
-      "Distressed if others moved things",
-      "Parents or teachers often said you lost things",
-    ],
-  },
-  {
-    id: "a8",
-    code: "A1h",
-    title: "Is often easily distracted by extraneous stimuli.",
-    adultExamples: [
-      "Difficulty screening out external stimuli",
-      "Difficulty picking up the thread after distraction",
-      "Noise or surroundings easily distract",
-      "Follows others’ conversations",
-      "Difficulty filtering or selecting information",
-    ],
-    childExamples: [
-      "Often looked out of the window in class",
-      "Easily distracted by noise or surroundings",
-      "Difficulty picking up the thread after distraction",
-    ],
-  },
-  {
-    id: "a9",
-    code: "A1i",
-    title: "Is often forgetful in daily activities.",
-    adultExamples: [
-      "Forgets appointments or obligations",
-      "Forgets keys, planner, etc.",
-      "Others often need to remind you of commitments",
-      "Often returns home for forgotten items",
-      "Rigid schemes to avoid forgetting",
-      "Forgets to write in or check planner",
-    ],
-    childExamples: [
-      "Often forgot agreements or tasks",
-      "Needed frequent reminders",
-      "Forgot what to do mid-task",
-      "Forgot to bring needed items to school",
-      "Left things at school or friends’ houses",
-    ],
-  },
-];
-
-export const HYPERACTIVITY_IMPULSIVITY: CriterionItem[] = [
-  {
-    id: "h1",
-    code: "H/I 1",
-    title: "Often fidgets with hands or feet or squirms in seat.",
-    adultExamples: [
-      "Cannot sit still",
-      "Moves legs",
-      "Plays with pen or objects",
-      "Bites nails or plays with hair",
-      "Can suppress movements but feels tense",
-    ],
-    childExamples: [
-      "Parents often told you to sit still",
-      "Moved legs",
-      "Played with pen or objects",
-      "Bit nails or played with hair",
-      "Could not sit quietly",
-      "Could suppress movements but felt tense",
-    ],
-  },
-  {
-    id: "h2",
-    code: "H/I 2",
-    title:
-      "Often leaves seat in classroom or in other situations in which remaining seated is expected.",
-    adultExamples: [
-      "Avoids symposia, conferences, church, etc.",
-      "Prefers walking around to sitting",
-      "Does not sit for long; always on the move",
-      "Tense because staying seated is hard",
-      "Makes excuses to move",
-    ],
-    childExamples: [
-      "Often got up from table or in class",
-      "Found it very hard to sit still in class or meals",
-      "Was told to stay seated",
-      "Made excuses to walk around",
-    ],
-  },
-  {
-    id: "h3",
-    code: "H/I 3",
-    title:
-      "Often runs about or climbs excessively in situations in which it is inappropriate (in adolescents or adults, may be limited to subjective feelings of restlessness).",
-    adultExamples: [
-      "Feels restless or agitated inside",
-      "Feels a need to be busy constantly",
-      "Difficulty relaxing",
-    ],
-    childExamples: [
-      "Always running",
-      "Climbed on furniture or jumped on sofa",
-      "Climbed trees",
-      "Felt agitated inside",
-    ],
-  },
-  {
-    id: "h4",
-    code: "H/I 4",
-    title: "Often has difficulty playing or engaging in leisure activities quietly.",
-    adultExamples: [
-      "Talks during activities that require quiet",
-      "With others, wants to dominate",
-      "Noisy in many situations",
-      "Cannot do activities quietly",
-      "Cannot speak softly",
-    ],
-    childExamples: [
-      "Noisy when playing or in class",
-      "Could not watch TV or a film quietly",
-      "Was told to be quieter and calmer",
-      "Quickly agitated with others",
-    ],
-  },
-  {
-    id: "h5",
-    code: "H/I 5",
-    title: 'Is often "on the go" or often acts as if "driven by a motor".',
-    adultExamples: [
-      "Always busy doing something",
-      "High energy; always doing things",
-      "Does not respect own limits",
-      "Difficulty letting things go; too controlling",
-    ],
-    childExamples: [
-      "Always doing something",
-      "Very active at school and home",
-      "Lots of energy",
-      "Would not stop pestering",
-    ],
-  },
-  {
-    id: "h6",
-    code: "H/I 6",
-    title: "Often talks excessively.",
-    adultExamples: [
-      "Talks so much people get tired",
-      "Known as very talkative",
-      "Difficulty stopping talking",
-      "Tendency to talk too much",
-      "Does not let others join the conversation",
-      "Needs many words to explain something",
-    ],
-    childExamples: [
-      "Known as very talkative",
-      "Teachers and parents often asked you to be quiet",
-      "School reports noted talking too much",
-      "Punished for talking too much",
-      "Disrupted classmates by talking too much",
-      "Did not let others join the conversation",
-    ],
-  },
-  {
-    id: "h7",
-    code: "H/I 7",
-    title: "Often blurts out answers before questions have been completed.",
-    adultExamples: [
-      "Difficulty keeping mouth closed",
-      "Says things without thinking",
-      "Answers before people finish speaking",
-      "Finishes others’ sentences",
-      "Lacks tact",
-    ],
-    childExamples: [
-      "Difficulty keeping mouth closed",
-      "Always wanted to answer first in class",
-      "Blurted answers first, even if wrong",
-      "Interrupted others before they finished",
-      "Could be hurtful",
-    ],
-  },
-  {
-    id: "h8",
-    code: "H/I 8",
-    title: "Often has difficulty awaiting turn.",
-    adultExamples: [
-      "Difficulty waiting in line; cuts in",
-      "Difficulty with patience in traffic or jams",
-      "Difficulty waiting turn in conversation",
-      "Impatient",
-      "Starts or leaves relationships/jobs out of impatience",
-    ],
-    childExamples: [
-      "Difficulty waiting turn in play or sport",
-      "Difficulty waiting turn in class",
-      "Always had to be first",
-      "Quickly impatient",
-      "Crossed street without looking",
-    ],
-  },
-  {
-    id: "h9",
-    code: "H/I 9",
-    title:
-      "Often interrupts or intrudes on others (e.g. butts into conversations or games). Is this inappropriate?",
-    adultExamples: [
-      "Easily intrudes on others",
-      "Cuts people off mid-sentence",
-      "Interrupts when others are busy",
-      "Others say you are intrusive",
-      "Difficulty respecting others’ boundaries",
-      "Has an opinion on everything and says it",
-    ],
-    childExamples: [
-      "Interrupted others’ play",
-      "Interrupted others’ conversations",
-      "Reacted to everything",
-      "Could not wait",
-    ],
-  },
-];
-
-export const FOOTNOTE_INTEREST =
-  "*Unless the topic is highly interesting (e.g. computer or special hobby).";
+  export const translations = {
+    en: {
+      steps: [
+        "Hi",
+        "Focus",
+        "You vs others",
+        "Buzz & blurts",
+        "Still vs others",
+        "Way back when",
+        "Real-life mess",
+        "Other stuff?",
+        "Recap",
+      ],
+      header: {
+        title: "DIVA check-in",
+        subtitle:
+          "Loosely based on the grown-up ADHD interview\u00a0(DIVA) + old-school DSM-IV ideas \u2014 just a cozy English walkthrough, not a doctor visit.",
+      },
+      disclaimer: {
+        p1Before: "Heads up: not a diagnosis.",
+        p1After:
+          " This is for curiosity and learning about yourself. Real ADHD assessment = actual human professional, sometimes family/school stories, ruling other stuff out. Official DIVA things live at",
+        p2Before: "For each item, tap how it fits",
+        p2Adult: "grown-up you",
+        p2Mid: "(think last ~6 months-ish) and",
+        p2Child: "kid you",
+        p2After: "(ages 5\u201312), same as the paper interview flow.",
+      },
+      intro: {
+        title: "So what happens here?",
+        hint: 'Nine \u201cfocus brain\u201d items, nine \u201cbuzzy / blurty\u201d ones, a few questions about how long it\u2019s been going on and where life got messy, then a chill recap with counts (like the DIVA score sheet vibes, but pink).',
+      },
+      yep: "Yep",
+      nope: "Nope",
+      yeah: "Yeah, pretty much",
+      nah: "Nah / not really sure",
+      next: "Next",
+      letsGo: "Let's go",
+      back: "Oops, back",
+      clearFresh: "Clear & start fresh",
+      tapEverything: "Tap everything on this page first \u2014 then we can roll on.",
+      phaseAdult: "Grown-up you (~last 6+ months)",
+      phaseChild: "Kid you (ages 5\u201312)",
+      hideExamples: "Hide examples",
+      peekExamples: "Peek at example behaviours \u2728",
+      adultExamplesLabel: "Grown-up examples",
+      childExamplesLabel: "Kid-era examples",
+      footnoteInterest:
+        "*Unless the topic is highly interesting (e.g. computer or special hobby).",
+      inattentionStep: {
+        title: "Part 1 \u2014 Focus & attention slip-ups",
+        hint: "Tap Yep if it\u2019s been a long-running thing (not just a stressed week), happens more than for similar people your age, or really messes with life. Otherwise Nope is totally fine.",
+      },
+      hiStep: {
+        title: "Part 2 \u2014 Buzzy body & impulsive moments",
+        hint: "Same vibe: ongoing pattern, more than peers, or actually causes problems \u2192 Yep. Otherwise Nope.",
+      },
+      peer: {
+        title: "Compared with other people",
+        hint: "Quick vibe check: did this stuff show up more often or more intensely than for other people your age (and kinda similar smarts / situation)? Same time periods as before.",
+        inattAdult:
+          "Focus / attention: as a grown-up, was this more than for most adults (or more often)?",
+        inattChild:
+          "Focus / attention: as a kid, more than for most kids your age (or more often)?",
+        hiAdult:
+          "Buzzy / impulsive side: now, more than for most adults (or more often)?",
+        hiChild:
+          "Buzzy / impulsive side: as a kid, more than for most kids your age (or more often)?",
+      },
+      onset: {
+        title: "Way back when \u2014 how long has this been a thing?",
+        hint: 'Old DSM-IV cared a lot about \u201csince childhood\u201d and hints before age 7. We\u2019re not judging \u2014 just mapping what it felt like for you.',
+        q1: "Does it feel like this has been with you most of your life, with several signs already before age 7?",
+        q2: "If it kicked in later, when do you think it started sticking around in a real way? Ballpark is fine.",
+        q2Placeholder: "e.g. ~12, uni, first job\u2026",
+      },
+      impairment: {
+        title: "Where did it actually make life wobbly?",
+        hint: "Think work/school, home, friends, hobbies, how you feel about yourself \u2014 DIVA-style, we\u2019re asking if stuff spilled into two or more big areas. No shame either way.",
+        adultQBefore: "Grown-up era:",
+        adultQMid: "did this pattern tie to real problems in",
+        adultQEm: "two or more",
+        adultQAfter: "major life corners?",
+        childQBefore: "Kid era:",
+        childQMid: "did similar mess show up in",
+        childQEm: "two or more",
+        childQAfter:
+          "important places (school, family, friends, hobbies, confidence)?",
+      },
+      criterionE: {
+        title: "Could something else be the main character?",
+        hint: "Super rough gut check: sometimes depression, anxiety, bipolar, sleep, substances, etc. can look like ADHD. Clinicians sort that out properly; we\u2019re just asking what you think from the inside.",
+        qBefore: "Does it feel like",
+        qEm: "another",
+        qAfter:
+          "mental health thing explains your struggles way better than ADHD vibes would?",
+        yeahMostly: "Yeah, mostly",
+        nahNotSure: "Nah / not sure",
+      },
+      results: {
+        heroTitle: "Your lil recap",
+        heroSubtitle:
+          "Numbers for fun + self-understanding \u2014 a pro still owns the actual diagnosis chat.",
+        lifelongYes:
+          "Timeline: you said this feels pretty lifelong, with signs hanging around before age 7.",
+        lifelongNoBefore:
+          "Timeline: you said it might",
+        lifelongNoEm: "not",
+        lifelongNoAfter:
+          "be a neat \u201csince tiny kid\u201d story before age 7.",
+        lifelongNoNote: "You wrote:",
+        lifelongNoEnd:
+          "Totally normal \u2014 clinicians dig into this more gently in person.",
+        focusKid: "Focus stuff \u2014 kid era",
+        focusAdult: "Focus stuff \u2014 grown-up era",
+        buzzyKid: "Buzzy / impulsive \u2014 kid era",
+        buzzyAdult: "Buzzy / impulsive \u2014 grown-up era",
+        kidCutoff: "Kid-era cutoff on the form: \u2265",
+        adultCutoffPre: "Paper form says \u2265",
+        adultCutoffSome: "; some studies use \u2265",
+        buzzyKidCutoff: "Kid-era cutoff: \u2265",
+        buzzyAdultCutoffPre: "Form: \u2265",
+        buzzyAdultResearch: " \u00b7 softer research bar: \u2265",
+        vsOthersTitle: "You vs other people (what you tapped)",
+        focusVsAdult: "Focus vs others \u2014 grown-up:",
+        focusVsChild: "; kid:",
+        buzzyVsAdult: "Buzzy side vs others \u2014 grown-up:",
+        buzzyVsChild: "; kid:",
+        moreOften: "more / more often",
+        notMore: "not more",
+        flavourTitle: 'Grown-up "flavour" from symptom counts',
+        flavourStrictPre: "Strict-ish form cutoff (\u2265",
+        flavourStrictEnd: " per domain):",
+        combined: "Mixed bag — lots of focus stuff AND buzzy/impulsive stuff",
+        predominantly_inattentive: "Mostly focus / attention side",
+        predominantly_hyperactive_impulsive: "Mostly buzzy / impulsive side",
+        below_threshold: "Under the usual symptom-count cutoff (for this threshold)",
+        flavourSoftPre: "Softer research-style cutoff (\u2265",
+        flavourSoftEnd: "):",
+        checklistTitle: "Big-picture checklist",
+        checkKidA:
+          "Kid era: six+ on the focus list and/or six+ on the buzzy list (you: focus",
+        checkKidABuzzy: ", buzzy",
+        checkAdultForm:
+          "Grown-up era (form threshold): six+ in at least one domain (focus",
+        checkAdultFormBuzzy: ", buzzy",
+        checkAdultResearchPre: "Grown-up era (research-y threshold \u2265",
+        checkAdultResearchEnd: ", FYI only)",
+        checkOnset:
+          "Lifelong pattern with onset before ~7 years (criterion B, as you answered)",
+        checkAdultImpairment: "Grown-up: rough patches in \u22652 big life areas",
+        checkChildImpairment: "Kid era: rough patches in \u22652 big life areas",
+        checkCriterionEBefore: "You didn\u2019t say another condition is the",
+        checkCriterionEEm: "main",
+        checkCriterionEAfter:
+          "explanation (you picked Nah / not sure) \u2014 \u2713 = that\u2019s consistent with the usual scoring-sheet friendly answer",
+        closingNote:
+          "If a bunch of this resonated, chatting with someone who knows adult ADHD can feel really validating. If you\u2019re in crisis, please reach for local emergency help or a crisis line \u2014 you matter.",
+        inDomain: " in a domain",
+      },
+    },
+    es: {
+      steps: [
+        "Hola",
+        "Atenci\u00f3n",
+        "T\u00fa vs otros",
+        "Inquietud",
+        "Quietud vs otros",
+        "Desde siempre",
+        "Vida real",
+        "\u00bfAlgo m\u00e1s?",
+        "Resumen",
+      ],
+      header: {
+        title: "DIVA check-in",
+        subtitle:
+          "Basado libremente en la entrevista de TDAH en adultos\u00a0(DIVA) + ideas del DSM-IV \u2014 solo un recorrido amigable, no una visita m\u00e9dica.",
+      },
+      disclaimer: {
+        p1Before: "Aviso: esto no es un diagn\u00f3stico.",
+        p1After:
+          " Es para explorar y aprender sobre ti. Una evaluaci\u00f3n real de TDAH requiere un profesional, a veces historias de familia/escuela y descartar otras causas. Las cosas oficiales de DIVA est\u00e1n en",
+        p2Before: "Para cada \u00edtem, toca c\u00f3mo te describe siendo",
+        p2Adult: "adulto/a",
+        p2Mid: "(los \u00faltimos ~6 meses) y de",
+        p2Child: "ni\u00f1o/a",
+        p2After: "(5\u201312 a\u00f1os), igual que en la entrevista original.",
+      },
+      intro: {
+        title: "\u00bfQu\u00e9 pasa aqu\u00ed?",
+        hint: 'Nueve \u00edtems de \u201ccerebro enfocado\u201d, nueve de \u201cinquietud / impulsividad\u201d, unas preguntas sobre cu\u00e1nto tiempo lleva esto y d\u00f3nde afecta tu vida, y luego un resumen con conteos (como la hoja de puntuaci\u00f3n DIVA, pero rosa).',
+      },
+      yep: "S\u00ed",
+      nope: "No",
+      yeah: "S\u00ed, m\u00e1s o menos",
+      nah: "No / no estoy seguro/a",
+      next: "Siguiente",
+      letsGo: "\u00a1Vamos!",
+      back: "Atr\u00e1s",
+      clearFresh: "Borrar y empezar de nuevo",
+      tapEverything: "Responde todo en esta p\u00e1gina antes de continuar.",
+      phaseAdult: "T\u00fa adulto/a (~\u00faltimos 6+ meses)",
+      phaseChild: "T\u00fa de ni\u00f1o/a (5\u201312 a\u00f1os)",
+      hideExamples: "Ocultar ejemplos",
+      peekExamples: "Ver ejemplos de conductas \u2728",
+      adultExamplesLabel: "Ejemplos de adulto",
+      childExamplesLabel: "Ejemplos de infancia",
+      footnoteInterest:
+        "*A menos que el tema sea muy interesante (p.ej. computadoras o un hobby especial).",
+      inattentionStep: {
+        title: "Parte 1 \u2014 Fallos de atenci\u00f3n",
+        hint: "Toca S\u00ed si es algo recurrente (no solo una semana estresada), ocurre m\u00e1s que en personas similares de tu edad, o realmente complica tu vida. Si no, No est\u00e1 totalmente bien.",
+      },
+      hiStep: {
+        title: "Parte 2 \u2014 Cuerpo inquieto e impulsos",
+        hint: "Mismo criterio: patr\u00f3n continuo, m\u00e1s que los dem\u00e1s, o que causa problemas reales \u2192 S\u00ed. Si no, No.",
+      },
+      peer: {
+        title: "Comparado con otras personas",
+        hint: "Verificaci\u00f3n r\u00e1pida: \u00bfesto aparec\u00eda con m\u00e1s frecuencia o intensidad que en otras personas de tu edad (con situaci\u00f3n e inteligencia similar)? Mismos per\u00edodos de tiempo que antes.",
+        inattAdult:
+          "Atenci\u00f3n / concentraci\u00f3n: de adulto/a, \u00bfera m\u00e1s que en la mayor\u00eda de adultos (o m\u00e1s seguido)?",
+        inattChild:
+          "Atenci\u00f3n / concentraci\u00f3n: de ni\u00f1o/a, \u00bfm\u00e1s que en la mayor\u00eda de ni\u00f1os de tu edad (o m\u00e1s seguido)?",
+        hiAdult:
+          "Lado inquieto / impulsivo: ahora, \u00bfm\u00e1s que en la mayor\u00eda de adultos (o m\u00e1s seguido)?",
+        hiChild:
+          "Lado inquieto / impulsivo: de ni\u00f1o/a, \u00bfm\u00e1s que en la mayor\u00eda de ni\u00f1os de tu edad (o m\u00e1s seguido)?",
+      },
+      onset: {
+        title: "Desde siempre \u2014 \u00bfcu\u00e1nto tiempo lleva esto?",
+        hint: 'El DSM-IV antiguo se preocupaba mucho por \u201cdesde la infancia\u201d y se\u00f1ales antes de los 7 a\u00f1os. No juzgamos \u2014 solo mapeamos c\u00f3mo lo viviste t\u00fa.',
+        q1: "\u00bfSientes que esto ha estado contigo la mayor parte de tu vida, con varias se\u00f1ales antes de los 7 a\u00f1os?",
+        q2: "Si empez\u00f3 m\u00e1s tarde, \u00bfcu\u00e1ndo crees que se volvi\u00f3 algo recurrente de verdad? Un aproximado est\u00e1 bien.",
+        q2Placeholder: "p.ej. ~12, universidad, primer trabajo\u2026",
+      },
+      impairment: {
+        title: "\u00bfD\u00f3nde afect\u00f3 realmente tu vida?",
+        hint: "Piensa en trabajo/escuela, hogar, amistades, hobbies, c\u00f3mo te sientes contigo mismo/a \u2014 al estilo DIVA, preguntamos si esto afect\u00f3 dos o m\u00e1s \u00e1reas importantes. Sin juicios.",
+        adultQBefore: "\u00c9poca adulta:",
+        adultQMid: "\u00bfeste patr\u00f3n caus\u00f3 problemas reales en",
+        adultQEm: "dos o m\u00e1s",
+        adultQAfter: "\u00e1reas importantes de tu vida?",
+        childQBefore: "\u00c9poca infantil:",
+        childQMid: "\u00bfapareci\u00f3 algo similar en",
+        childQEm: "dos o m\u00e1s",
+        childQAfter:
+          "lugares importantes (escuela, familia, amigos, hobbies, autoestima)?",
+      },
+      criterionE: {
+        title: "\u00bfPodr\u00eda ser otra cosa la causa principal?",
+        hint: "Revisi\u00f3n intuitiva: a veces la depresi\u00f3n, ansiedad, trastorno bipolar, sue\u00f1o, sustancias, etc. pueden parecer TDAH. Los cl\u00ednicos lo eval\u00faan correctamente; solo preguntamos qu\u00e9 sientes t\u00fa desde adentro.",
+        qBefore: "\u00bfSientes que",
+        qEm: "otro",
+        qAfter:
+          "problema de salud mental explica mejor tus dificultades que el TDAH?",
+        yeahMostly: "S\u00ed, principalmente",
+        nahNotSure: "No / no estoy seguro/a",
+      },
+      results: {
+        heroTitle: "Tu peque\u00f1o resumen",
+        heroSubtitle:
+          "N\u00fameros para explorar y entenderte \u2014 un profesional sigue siendo quien da el diagn\u00f3stico real.",
+        lifelongYes:
+          "L\u00ednea de tiempo: dijiste que esto se siente bastante de toda la vida, con se\u00f1ales antes de los 7 a\u00f1os.",
+        lifelongNoBefore: "L\u00ednea de tiempo: dijiste que puede que",
+        lifelongNoEm: "no",
+        lifelongNoAfter:
+          "sea una historia clara de \u201cdesde peque\u00f1o/a\u201d antes de los 7 a\u00f1os.",
+        lifelongNoNote: "Escribiste:",
+        lifelongNoEnd:
+          "Totalmente normal \u2014 los cl\u00ednicos profundizan en esto con m\u00e1s calma en persona.",
+        focusKid: "Atenci\u00f3n \u2014 \u00e9poca infantil",
+        focusAdult: "Atenci\u00f3n \u2014 \u00e9poca adulta",
+        buzzyKid: "Inquietud / impulsividad \u2014 \u00e9poca infantil",
+        buzzyAdult: "Inquietud / impulsividad \u2014 \u00e9poca adulta",
+        kidCutoff: "Punto de corte infantil en el formulario: \u2265",
+        adultCutoffPre: "El formulario dice \u2265",
+        adultCutoffSome: "; algunos estudios usan \u2265",
+        buzzyKidCutoff: "Punto de corte infantil: \u2265",
+        buzzyAdultCutoffPre: "Formulario: \u2265",
+        buzzyAdultResearch: " \u00b7 barra de investigaci\u00f3n m\u00e1s flexible: \u2265",
+        vsOthersTitle: "T\u00fa vs otras personas (lo que seleccionaste)",
+        focusVsAdult: "Atenci\u00f3n vs otros \u2014 adulto/a:",
+        focusVsChild: "; infancia:",
+        buzzyVsAdult: "Lado inquieto vs otros \u2014 adulto/a:",
+        buzzyVsChild: "; infancia:",
+        moreOften: "m\u00e1s / m\u00e1s seguido",
+        notMore: "no m\u00e1s",
+        flavourTitle: '"Perfil" adulto seg\u00fan los conteos de s\u00edntomas',
+        flavourStrictPre: "Umbral estricto del formulario (\u2265",
+        flavourStrictEnd: " por dominio):",
+        combined: "Mezcla de cosas — mucha atenci\u00f3n y algo de inquietud / impulsividad",
+        predominantly_inattentive: "Principalmente atenci\u00f3n / atenci\u00f3n",
+        predominantly_hyperactive_impulsive: "Principalmente inquietud / impulsividad",
+        below_threshold: "Debajo del umbral usual de conteos de s\u00edntomas (para este umbral)",
+        flavourSoftPre: "Umbral m\u00e1s flexible para investigaci\u00f3n (\u2265",
+        flavourSoftEnd: "):",
+        checklistTitle: "Lista de verificaci\u00f3n general",
+        checkKidA:
+          "\u00c9poca infantil: seis o m\u00e1s en la lista de atenci\u00f3n y/o seis o m\u00e1s en la lista de inquietud (t\u00fa: atenci\u00f3n",
+        checkKidABuzzy: ", inquietud",
+        checkAdultForm:
+          "\u00c9poca adulta (umbral del formulario): seis o m\u00e1s en al menos un dominio (atenci\u00f3n",
+        checkAdultFormBuzzy: ", inquietud",
+        checkAdultResearchPre: "\u00c9poca adulta (umbral de investigaci\u00f3n \u2265",
+        checkAdultResearchEnd: ", solo informativo)",
+        checkOnset:
+          "Patr\u00f3n de toda la vida con inicio antes de los ~7 a\u00f1os (criterio B, seg\u00fan tu respuesta)",
+        checkAdultImpairment:
+          "Adulto/a: dificultades en \u22652 \u00e1reas importantes de la vida",
+        checkChildImpairment:
+          "\u00c9poca infantil: dificultades en \u22652 \u00e1reas importantes de la vida",
+        checkCriterionEBefore: "No dijiste que otra condici\u00f3n es la",
+        checkCriterionEEm: "explicaci\u00f3n principal",
+        checkCriterionEAfter:
+          "(elegiste No / no estoy seguro/a) \u2014 \u2713 = eso es consistente con la respuesta habitual en la hoja de puntuaci\u00f3n",
+        closingNote:
+          "Si mucho de esto resson\u00f3 en ti, hablar con alguien que conozca el TDAH en adultos puede ser muy valioso. Si est\u00e1s en crisis, por favor busca ayuda de emergencia local o una l\u00ednea de crisis \u2014 eres importante.",
+        inDomain: " en un dominio",
+      },
+    },
+  };
+  
+  export const INATTENTION: CriterionItem[] = [
+    {
+      id: "a1",
+      code: "A1a",
+      title:
+        "Often fails to give close attention to details or makes careless mistakes in schoolwork, work, or other activities.",
+      adultExamples: [
+        "Careless mistakes",
+        "Must work more slowly to avoid mistakes",
+        "Does not read instructions carefully",
+        "Difficulty working with detail",
+        "Spends excessive time on details",
+        "Gets stuck in details",
+        "Works too fast and then makes mistakes",
+      ],
+      childExamples: [
+        "Careless mistakes in schoolwork",
+        "Mistakes from not reading questions properly",
+        "Unanswered questions because of reading difficulty",
+        "Back of test left blank",
+        "Others commented work looked careless",
+        "Did not check homework answers",
+        "Took too long on very detailed tasks",
+      ],
+    },
+    {
+      id: "a2",
+      code: "A1b",
+      title: "Often has difficulty sustaining attention in tasks or play activities.",
+      adultExamples: [
+        "Cannot sustain attention for long in tasks*",
+        "Easily distracted by own associations and thoughts",
+        "Difficulty finishing a film or reading a book*",
+        "Quickly tires of things*",
+        "Asks about topics already discussed",
+      ],
+      childExamples: [
+        "Difficulty sustaining attention in schoolwork",
+        "Difficulty sustaining attention in play*",
+        "Easily distracted",
+        "Could not concentrate well*",
+        "Needed a lot of structure to avoid distraction",
+        "Quickly tired of activities*",
+      ],
+    },
+    {
+      id: "a3",
+      code: "A1c",
+      title: "Often does not seem to listen when spoken to directly.",
+      adultExamples: [
+        "Absent or distracted",
+        "Difficulty concentrating in a conversation",
+        "After a conversation, unsure what it was about",
+        "Often changes the topic of conversation",
+        "Others often say you seem distracted",
+      ],
+      childExamples: [
+        "Did not know what parents or teachers had just said",
+        "Absent or distracted",
+        "Only listened with eye contact or raised voice",
+        "Often needed several attempts to get your attention",
+        "Questions had to be repeated several times",
+      ],
+    },
+    {
+      id: "a4",
+      code: "A1d",
+      title:
+        "Often does not follow through on instructions and fails to finish schoolwork, chores, or duties in the workplace (not due to oppositional behaviour or failure to understand instructions).",
+      adultExamples: [
+        "Does several things at once without finishing",
+        "Difficulty finishing something when it is no longer novel",
+        "Needs a deadline to finish something",
+        "Difficulty finishing administrative tasks",
+        "Difficulty following instructions",
+      ],
+      childExamples: [
+        "Difficulty following instructions",
+        "Difficulty with multi-step tasks",
+        "Did not finish things",
+        "Homework unfinished or not handed in",
+        "Needed a lot of structure to finish tasks",
+      ],
+    },
+    {
+      id: "a5",
+      code: "A1e",
+      title: "Often has difficulty organizing tasks and activities.",
+      adultExamples: [
+        "Difficulty planning daily tasks",
+        "Home and/or workplace disorganized",
+        "Over-plans or does not plan efficiently",
+        "Often double-books appointments",
+        "Often late",
+        "Cannot use a planner consistently",
+        "Rigid because routines are needed",
+        "Poor sense of time",
+        "Makes schedules but does not follow them",
+        "Needs others to structure things",
+      ],
+      childExamples: [
+        "Difficulty being ready on time",
+        "Messy room or desk",
+        "Difficulty playing independently",
+        "Difficulty planning homework",
+        "Did several things at once",
+        "Often late",
+        "Poor sense of time",
+        "Difficulty entertaining self alone",
+      ],
+    },
+    {
+      id: "a6",
+      code: "A1f",
+      title:
+        "Often avoids, dislikes, or is reluctant to engage in tasks requiring sustained mental effort (such as schoolwork or homework).",
+      adultExamples: [
+        "Tries easy or fun things first",
+        "Often puts off difficult or boring tasks",
+        "Delays tasks so deadlines are missed",
+        "Avoids monotonous work (e.g. admin)",
+        "Dislikes reading because of mental effort",
+        "Avoids tasks requiring high concentration",
+      ],
+      childExamples: [
+        "Avoided or disliked homework",
+        "Read few books; reading felt effortful",
+        "Avoided things requiring high concentration",
+        "Disliked subjects requiring high concentration",
+        "Put off difficult or boring tasks",
+      ],
+    },
+    {
+      id: "a7",
+      code: "A1g",
+      title:
+        "Often loses things necessary for tasks or activities (e.g. toys, school assignments, pencils, books, or tools).",
+      adultExamples: [
+        "Loses wallet, keys, or planner",
+        "Often leaves belongings behind",
+        "Loses work papers",
+        "Spends a lot of time looking for things",
+        "Distressed if others move your things",
+        "Stores things in inappropriate places",
+        "Loses lists, phone numbers, or notes",
+      ],
+      childExamples: [
+        "Lost planner, pens, sports bag, etc.",
+        "Lost clothes, toys, or homework",
+        "Spent a lot of time looking for things",
+        "Distressed if others moved things",
+        "Parents or teachers often said you lost things",
+      ],
+    },
+    {
+      id: "a8",
+      code: "A1h",
+      title: "Is often easily distracted by extraneous stimuli.",
+      adultExamples: [
+        "Difficulty screening out external stimuli",
+        "Difficulty picking up the thread after distraction",
+        "Noise or surroundings easily distract",
+        "Follows others’ conversations",
+        "Difficulty filtering or selecting information",
+      ],
+      childExamples: [
+        "Often looked out of the window in class",
+        "Easily distracted by noise or surroundings",
+        "Difficulty picking up the thread after distraction",
+      ],
+    },
+    {
+      id: "a9",
+      code: "A1i",
+      title: "Is often forgetful in daily activities.",
+      adultExamples: [
+        "Forgets appointments or obligations",
+        "Forgets keys, planner, etc.",
+        "Others often need to remind you of commitments",
+        "Often returns home for forgotten items",
+        "Rigid schemes to avoid forgetting",
+        "Forgets to write in or check planner",
+      ],
+      childExamples: [
+        "Often forgot agreements or tasks",
+        "Needed frequent reminders",
+        "Forgot what to do mid-task",
+        "Forgot to bring needed items to school",
+        "Left things at school or friends’ houses",
+      ],
+    },
+  ];
+  
+  export const HYPERACTIVITY_IMPULSIVITY: CriterionItem[] = [
+    {
+      id: "h1",
+      code: "H/I 1",
+      title: "Often fidgets with hands or feet or squirms in seat.",
+      adultExamples: [
+        "Cannot sit still",
+        "Moves legs",
+        "Plays with pen or objects",
+        "Bites nails or plays with hair",
+        "Can suppress movements but feels tense",
+      ],
+      childExamples: [
+        "Parents often told you to sit still",
+        "Moved legs",
+        "Played with pen or objects",
+        "Bit nails or played with hair",
+        "Could not sit quietly",
+        "Could suppress movements but felt tense",
+      ],
+    },
+    {
+      id: "h2",
+      code: "H/I 2",
+      title:
+        "Often leaves seat in classroom or in other situations in which remaining seated is expected.",
+      adultExamples: [
+        "Avoids symposia, conferences, church, etc.",
+        "Prefers walking around to sitting",
+        "Does not sit for long; always on the move",
+        "Tense because staying seated is hard",
+        "Makes excuses to move",
+      ],
+      childExamples: [
+        "Often got up from table or in class",
+        "Found it very hard to sit still in class or meals",
+        "Was told to stay seated",
+        "Made excuses to walk around",
+      ],
+    },
+    {
+      id: "h3",
+      code: "H/I 3",
+      title:
+        "Often runs about or climbs excessively in situations in which it is inappropriate (in adolescents or adults, may be limited to subjective feelings of restlessness).",
+      adultExamples: [
+        "Feels restless or agitated inside",
+        "Feels a need to be busy constantly",
+        "Difficulty relaxing",
+      ],
+      childExamples: [
+        "Always running",
+        "Climbed on furniture or jumped on sofa",
+        "Climbed trees",
+        "Felt agitated inside",
+      ],
+    },
+    {
+      id: "h4",
+      code: "H/I 4",
+      title: "Often has difficulty playing or engaging in leisure activities quietly.",
+      adultExamples: [
+        "Talks during activities that require quiet",
+        "With others, wants to dominate",
+        "Noisy in many situations",
+        "Cannot do activities quietly",
+        "Cannot speak softly",
+      ],
+      childExamples: [
+        "Noisy when playing or in class",
+        "Could not watch TV or a film quietly",
+        "Was told to be quieter and calmer",
+        "Quickly agitated with others",
+      ],
+    },
+    {
+      id: "h5",
+      code: "H/I 5",
+      title: 'Is often "on the go" or often acts as if "driven by a motor".',
+      adultExamples: [
+        "Always busy doing something",
+        "High energy; always doing things",
+        "Does not respect own limits",
+        "Difficulty letting things go; too controlling",
+      ],
+      childExamples: [
+        "Always doing something",
+        "Very active at school and home",
+        "Lots of energy",
+        "Would not stop pestering",
+      ],
+    },
+    {
+      id: "h6",
+      code: "H/I 6",
+      title: "Often talks excessively.",
+      adultExamples: [
+        "Talks so much people get tired",
+        "Known as very talkative",
+        "Difficulty stopping talking",
+        "Tendency to talk too much",
+        "Does not let others join the conversation",
+        "Needs many words to explain something",
+      ],
+      childExamples: [
+        "Known as very talkative",
+        "Teachers and parents often asked you to be quiet",
+        "School reports noted talking too much",
+        "Punished for talking too much",
+        "Disrupted classmates by talking too much",
+        "Did not let others join the conversation",
+      ],
+    },
+    {
+      id: "h7",
+      code: "H/I 7",
+      title: "Often blurts out answers before questions have been completed.",
+      adultExamples: [
+        "Difficulty keeping mouth closed",
+        "Says things without thinking",
+        "Answers before people finish speaking",
+        "Finishes others’ sentences",
+        "Lacks tact",
+      ],
+      childExamples: [
+        "Difficulty keeping mouth closed",
+        "Always wanted to answer first in class",
+        "Blurted answers first, even if wrong",
+        "Interrupted others before they finished",
+        "Could be hurtful",
+      ],
+    },
+    {
+      id: "h8",
+      code: "H/I 8",
+      title: "Often has difficulty awaiting turn.",
+      adultExamples: [
+        "Difficulty waiting in line; cuts in",
+        "Difficulty with patience in traffic or jams",
+        "Difficulty waiting turn in conversation",
+        "Impatient",
+        "Starts or leaves relationships/jobs out of impatience",
+      ],
+      childExamples: [
+        "Difficulty waiting turn in play or sport",
+        "Difficulty waiting turn in class",
+        "Always had to be first",
+        "Quickly impatient",
+        "Crossed street without looking",
+      ],
+    },
+    {
+      id: "h9",
+      code: "H/I 9",
+      title:
+        "Often interrupts or intrudes on others (e.g. butts into conversations or games). Is this inappropriate?",
+      adultExamples: [
+        "Easily intrudes on others",
+        "Cuts people off mid-sentence",
+        "Interrupts when others are busy",
+        "Others say you are intrusive",
+        "Difficulty respecting others’ boundaries",
+        "Has an opinion on everything and says it",
+      ],
+      childExamples: [
+        "Interrupted others’ play",
+        "Interrupted others’ conversations",
+        "Reacted to everything",
+        "Could not wait",
+      ],
+    },
+  ];
+  
+  export const INATTENTION_ES: CriterionItem[] = [
+    {
+      id: "a1",
+      code: "A1a",
+      title:
+        "A menudo no presta atenci\u00f3n a los detalles o comete errores por descuido en el trabajo escolar, trabajo u otras actividades.",
+      adultExamples: [
+        "Errores por descuido",
+        "Necesita trabajar m\u00e1s lento para evitar errores",
+        "No lee las instrucciones con cuidado",
+        "Dificultad para trabajar con detalles",
+        "Pasa demasiado tiempo en los detalles",
+        "Se queda atascado en los detalles",
+        "Trabaja demasiado r\u00e1pido y comete errores",
+      ],
+      childExamples: [
+        "Errores por descuido en las tareas escolares",
+        "Errores por no leer bien las preguntas",
+        "Preguntas sin responder por dificultad lectora",
+        "Parte trasera del examen en blanco",
+        "Otros comentaban que el trabajo parec\u00eda descuidado",
+        "No revisaba las respuestas de los deberes",
+        "Tardaba demasiado en tareas muy detalladas",
+      ],
+    },
+    {
+      id: "a2",
+      code: "A1b",
+      title:
+        "A menudo tiene dificultades para mantener la atenci\u00f3n en tareas o actividades l\u00fadicas.",
+      adultExamples: [
+        "No puede sostener la atenci\u00f3n mucho tiempo en tareas*",
+        "F\u00e1cilmente distrado por sus propias asociaciones y pensamientos",
+        "Dificultad para terminar una pel\u00edcula o leer un libro*",
+        "Se cansa r\u00e1pidamente de las cosas*",
+        "Pregunta sobre temas ya discutidos",
+      ],
+      childExamples: [
+        "Dificultad para sostener la atenci\u00f3n en el trabajo escolar",
+        "Dificultad para sostener la atenci\u00f3n en el juego*",
+        "F\u00e1cilmente distrado",
+        "No pod\u00eda concentrarse bien*",
+        "Necesitaba mucha estructura para evitar distracciones",
+        "Se cansaba r\u00e1pido de las actividades*",
+      ],
+    },
+    {
+      id: "a3",
+      code: "A1c",
+      title:
+        "A menudo parece no escuchar cuando se le habla directamente.",
+      adultExamples: [
+        "Ausente o distrado",
+        "Dificultad para concentrarse en una conversaci\u00f3n",
+        "Despu\u00e9s de una conversaci\u00f3n, no sabe bien de qu\u00e9 fue",
+        "A menudo cambia el tema de conversaci\u00f3n",
+        "Otros dicen a menudo que parece distrado",
+      ],
+      childExamples: [
+        "No sab\u00eda qu\u00e9 hab\u00edan dicho los padres o maestros",
+        "Ausente o distrado",
+        "Solo escuchaba con contacto visual o voz elevada",
+        "A menudo necesitaba varios intentos para captar su atenci\u00f3n",
+        "Hab\u00eda que repetir las preguntas varias veces",
+      ],
+    },
+    {
+      id: "a4",
+      code: "A1d",
+      title:
+        "A menudo no sigue las instrucciones y no termina las tareas escolares, los quehaceres o los deberes laborales (no por conducta oposicionista ni por no comprender las instrucciones).",
+      adultExamples: [
+        "Hace varias cosas a la vez sin terminarlas",
+        "Dificultad para terminar algo cuando ya no es nuevo",
+        "Necesita una fecha l\u00edmite para terminar algo",
+        "Dificultad para terminar tareas administrativas",
+        "Dificultad para seguir instrucciones",
+      ],
+      childExamples: [
+        "Dificultad para seguir instrucciones",
+        "Dificultad con tareas de varios pasos",
+        "No terminaba las cosas",
+        "Deberes sin terminar o sin entregar",
+        "Necesitaba mucha estructura para terminar las tareas",
+      ],
+    },
+    {
+      id: "a5",
+      code: "A1e",
+      title:
+        "A menudo tiene dificultades para organizar tareas y actividades.",
+      adultExamples: [
+        "Dificultad para planificar las tareas diarias",
+        "Hogar y/o trabajo desorganizados",
+        "Planifica en exceso o no planifica eficientemente",
+        "A menudo duplica citas",
+        "A menudo llega tarde",
+        "No puede usar una agenda de forma consistente",
+        "R\u00edgido porque necesita rutinas",
+        "Mala percepci\u00f3n del tiempo",
+        "Hace horarios pero no los sigue",
+        "Necesita que otros organicen las cosas",
+      ],
+      childExamples: [
+        "Dificultad para estar listo a tiempo",
+        "Cuarto o escritorio desordenado",
+        "Dificultad para jugar de forma independiente",
+        "Dificultad para planificar los deberes",
+        "Hac\u00eda varias cosas a la vez",
+        "A menudo llegaba tarde",
+        "Mala percepci\u00f3n del tiempo",
+        "Dificultad para entretenerse solo",
+      ],
+    },
+    {
+      id: "a6",
+      code: "A1f",
+      title:
+        "A menudo evita, le desagrada o es reacio a participar en tareas que requieren esfuerzo mental sostenido (como el trabajo escolar o los deberes).",
+      adultExamples: [
+        "Intenta primero las cosas f\u00e1ciles o divertidas",
+        "A menudo pospone las tareas dif\u00edciles o aburridas",
+        "Retrasa las tareas hasta perder los plazos",
+        "Evita el trabajo mon\u00f3tono (p.ej. tareas administrativas)",
+        "Evita leer por el esfuerzo mental",
+        "Evita tareas que requieren alta concentraci\u00f3n",
+      ],
+      childExamples: [
+        "Evitaba o le desagradaban los deberes",
+        "Le\u00eda pocos libros; leer le supon\u00eda esfuerzo",
+        "Evitaba cosas que requer\u00edan alta concentraci\u00f3n",
+        "Le desagradaban las asignaturas que requer\u00edan alta concentraci\u00f3n",
+        "Postergaba las tareas dif\u00edciles o aburridas",
+      ],
+    },
+    {
+      id: "a7",
+      code: "A1g",
+      title:
+        "A menudo pierde cosas necesarias para tareas o actividades (p.ej. juguetes, tareas escolares, l\u00e1pices, libros o herramientas).",
+      adultExamples: [
+        "Pierde la cartera, las llaves o la agenda",
+        "A menudo deja sus pertenencias olvidadas",
+        "Pierde documentos de trabajo",
+        "Pasa mucho tiempo buscando cosas",
+        "Se altera si otros mueven sus cosas",
+        "Guarda las cosas en lugares inapropiados",
+        "Pierde listas, n\u00fameros de tel\u00e9fono o notas",
+      ],
+      childExamples: [
+        "Perd\u00eda la agenda, bol\u00edgrafos, bolsa de deporte, etc.",
+        "Perd\u00eda ropa, juguetes o deberes",
+        "Pasaba mucho tiempo buscando cosas",
+        "Se alteraba si otros mov\u00edan las cosas",
+        "Padres o profesores dec\u00edan a menudo que perd\u00eda cosas",
+      ],
+    },
+    {
+      id: "a8",
+      code: "A1h",
+      title:
+        "A menudo se distrae f\u00e1cilmente con est\u00edmulos externos.",
+      adultExamples: [
+        "Dificultad para filtrar est\u00edmulos externos",
+        "Dificultad para retomar el hilo tras una distracci\u00f3n",
+        "El ruido o el entorno lo distraen f\u00e1cilmente",
+        "Sigue conversaciones ajenas",
+        "Dificultad para filtrar o seleccionar informaci\u00f3n",
+      ],
+      childExamples: [
+        "A menudo miraba por la ventana en clase",
+        "F\u00e1cilmente distrado por el ruido o el entorno",
+        "Dificultad para retomar el hilo tras una distracci\u00f3n",
+      ],
+    },
+    {
+      id: "a9",
+      code: "A1i",
+      title:
+        "A menudo es olvidadizo en las actividades diarias.",
+      adultExamples: [
+        "Olvida citas u obligaciones",
+        "Olvida las llaves, la agenda, etc.",
+        "Otros a menudo necesitan recordarle sus compromisos",
+        "A menudo vuelve a casa por cosas olvidadas",
+        "Esquemas r\u00edgidos para no olvidar",
+        "Olvida escribir en la agenda o revisarla",
+      ],
+      childExamples: [
+        "A menudo olvidaba acuerdos o tareas",
+        "Necesitaba recordatorios frecuentes",
+        "Olvidaba qu\u00e9 hacer a mitad de una tarea",
+        "Olvidaba llevar lo necesario a la escuela",
+        "Dejaba cosas en la escuela o en casa de amigos",
+      ],
+    },
+  ];
+  
+  export const HYPERACTIVITY_IMPULSIVITY_ES: CriterionItem[] = [
+    {
+      id: "h1",
+      code: "H/I 1",
+      title:
+        "A menudo mueve nerviosamente las manos o los pies, o se retuerce en el asiento.",
+      adultExamples: [
+        "No puede estar quieto",
+        "Mueve las piernas",
+        "Juega con el bol\u00edgrafo u objetos",
+        "Se muerde las u\u00f1as o juega con el cabello",
+        "Puede suprimir los movimientos pero se siente tenso",
+      ],
+      childExamples: [
+        "Los padres a menudo le dec\u00edan que se quedara quieto",
+        "Mov\u00eda las piernas",
+        "Jugaba con el bol\u00edgrafo u objetos",
+        "Se mord\u00eda las u\u00f1as o jugaba con el cabello",
+        "No pod\u00eda estar quieto",
+        "Pod\u00eda suprimir movimientos pero se sent\u00eda tenso",
+      ],
+    },
+    {
+      id: "h2",
+      code: "H/I 2",
+      title:
+        "A menudo abandona su asiento en el aula o en otras situaciones en las que se espera que permanezca sentado.",
+      adultExamples: [
+        "Evita simposios, conferencias, misa, etc.",
+        "Prefiere caminar a estar sentado",
+        "No se sienta por mucho tiempo; siempre en movimiento",
+        "Tenso porque le cuesta estar sentado",
+        "Busca excusas para moverse",
+      ],
+      childExamples: [
+        "A menudo se levantaba de la mesa o en clase",
+        "Le costaba mucho estar quieto en clase o en las comidas",
+        "Le dec\u00edan que se quedara sentado",
+        "Buscaba excusas para caminar",
+      ],
+    },
+    {
+      id: "h3",
+      code: "H/I 3",
+      title:
+        "A menudo corre o trepa en situaciones en las que es inapropiado (en adolescentes o adultos puede limitarse a sentimientos subjetivos de inquietud).",
+      adultExamples: [
+        "Se siente inquieto o agitado por dentro",
+        "Siente la necesidad de estar siempre ocupado",
+        "Dificultad para relajarse",
+      ],
+      childExamples: [
+        "Siempre corriendo",
+        "Trepaba a los muebles o saltaba en el sof\u00e1",
+        "Trepaba a los \u00e1rboles",
+        "Se sent\u00eda agitado por dentro",
+      ],
+    },
+    {
+      id: "h4",
+      code: "H/I 4",
+      title:
+        "A menudo tiene dificultades para jugar o participar en actividades recreativas de forma tranquila.",
+      adultExamples: [
+        "Habla durante actividades que requieren silencio",
+        "Con otros, quiere dominar",
+        "Ruidoso en muchas situaciones",
+        "No puede hacer actividades en silencio",
+        "No puede hablar bajito",
+      ],
+      childExamples: [
+        "Ruidoso al jugar o en clase",
+        "No pod\u00eda ver la tele o una pel\u00edcula en silencio",
+        "Le dec\u00edan que fuera m\u00e1s tranquilo y calmado",
+        "Se agitaba r\u00e1pido con otros",
+      ],
+    },
+    {
+      id: "h5",
+      code: "H/I 5",
+      title:
+        "A menudo est\u00e1 \u201cen marcha\u201d o act\u00faa como si tuviera un \u201cmotor\u201d.",
+      adultExamples: [
+        "Siempre ocupado haciendo algo",
+        "Mucha energ\u00eda; siempre haciendo cosas",
+        "No respeta sus propios l\u00edmites",
+        "Dificultad para soltar las cosas; demasiado controlador",
+      ],
+      childExamples: [
+        "Siempre haciendo algo",
+        "Muy activo en la escuela y en casa",
+        "Mucha energ\u00eda",
+        "No paraba de molestar",
+      ],
+    },
+    {
+      id: "h6",
+      code: "H/I 6",
+      title: "A menudo habla excesivamente.",
+      adultExamples: [
+        "Habla tanto que la gente se cansa",
+        "Conocido como muy hablador",
+        "Dificultad para dejar de hablar",
+        "Tendencia a hablar demasiado",
+        "No deja que otros entren en la conversaci\u00f3n",
+        "Necesita muchas palabras para explicar algo",
+      ],
+      childExamples: [
+        "Conocido como muy hablador",
+        "Profesores y padres le ped\u00edan a menudo que guardara silencio",
+        "Los informes escolares se\u00f1alaban que hablaba demasiado",
+        "Castigado por hablar demasiado",
+        "Molestaba a los compa\u00f1eros hablando demasiado",
+        "No dejaba que otros entraran en la conversaci\u00f3n",
+      ],
+    },
+    {
+      id: "h7",
+      code: "H/I 7",
+      title:
+        "A menudo precipita respuestas antes de que las preguntas se hayan completado.",
+      adultExamples: [
+        "Dificultad para mantener la boca cerrada",
+        "Dice cosas sin pensar",
+        "Responde antes de que la gente termine de hablar",
+        "Termina las frases de otros",
+        "Falta de tacto",
+      ],
+      childExamples: [
+        "Dificultad para mantener la boca cerrada",
+        "Siempre quer\u00eda responder primero en clase",
+        "Daba respuestas precipitadas, incluso si eran incorrectas",
+        "Interrump\u00eda a otros antes de que terminaran",
+        "Pod\u00eda ser hiriente",
+      ],
+    },
+    {
+      id: "h8",
+      code: "H/I 8",
+      title: "A menudo tiene dificultades para esperar su turno.",
+      adultExamples: [
+        "Dificultad para esperar en fila; se cuela",
+        "Dificultad con la paciencia en el tr\u00e1fico o atascos",
+        "Dificultad para esperar su turno en la conversaci\u00f3n",
+        "Impaciente",
+        "Inicia o abandona relaciones/trabajos por impaciencia",
+      ],
+      childExamples: [
+        "Dificultad para esperar su turno en el juego o el deporte",
+        "Dificultad para esperar su turno en clase",
+        "Siempre ten\u00eda que ser el primero",
+        "R\u00e1pidamente impaciente",
+        "Cruzaba la calle sin mirar",
+      ],
+    },
+    {
+      id: "h9",
+      code: "H/I 9",
+      title:
+        "A menudo interrumpe o se inmiscuye en las actividades de otros (p.ej. se mete en conversaciones o juegos). \u00bfEs esto inapropiado?",
+      adultExamples: [
+        "F\u00e1cilmente se mete con otros",
+        "Corta a la gente a mitad de frase",
+        "Interrumpe cuando otros est\u00e1n ocupados",
+        "Otros dicen que es intrusivo",
+        "Dificultad para respetar los l\u00edmites de otros",
+        "Tiene opini\u00f3n sobre todo y la dice",
+      ],
+      childExamples: [
+        "Interrump\u00eda el juego de otros",
+        "Interrump\u00eda las conversaciones de otros",
+        "Reaccionaba a todo",
+        "No pod\u00eda esperar",
+      ],
+    },
+  ];
+  
