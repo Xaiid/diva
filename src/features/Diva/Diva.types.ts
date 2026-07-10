@@ -1,4 +1,4 @@
-import { translations } from "./divaContent";
+import { translations } from "./DivaContent";
 
 export type CriterionItem = {
   id: string;

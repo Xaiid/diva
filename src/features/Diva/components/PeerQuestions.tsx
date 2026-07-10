@@ -1,4 +1,4 @@
-import type { Translations } from "../Diva.types";
+import { useLang } from "../../../context/LanguageContext";
 
 export function PeerQuestions({
     inattention,
@@ -10,7 +10,6 @@ export function PeerQuestions({
     onInattC,
     onHiA,
     onHiC,
-    t,
   }: {
     inattention: boolean;
     valueInattA: boolean | null;
@@ -21,8 +20,8 @@ export function PeerQuestions({
     onInattC: (v: boolean) => void;
     onHiA: (v: boolean) => void;
     onHiC: (v: boolean) => void;
-    t: Translations;
   }) {
+    const { t } = useLang();
     const p = t.peer;
     return (
       <>
@@ -33,39 +32,15 @@ export function PeerQuestions({
             <div className="question-block">
               <label className="prompt">{p.inattAdult}</label>
               <div className="yesno-row">
-                <button
-                  type="button"
-                  className={valueInattA === true ? "chosen" : ""}
-                  onClick={() => onInattA(true)}
-                >
-                  {t.yep}
-                </button>
-                <button
-                  type="button"
-                  className={valueInattA === false ? "chosen" : ""}
-                  onClick={() => onInattA(false)}
-                >
-                  {t.nope}
-                </button>
+                <button type="button" className={valueInattA === true ? "chosen" : ""} onClick={() => onInattA(true)}>{t.yep}</button>
+                <button type="button" className={valueInattA === false ? "chosen" : ""} onClick={() => onInattA(false)}>{t.nope}</button>
               </div>
             </div>
             <div className="question-block">
               <label className="prompt">{p.inattChild}</label>
               <div className="yesno-row">
-                <button
-                  type="button"
-                  className={valueInattC === true ? "chosen" : ""}
-                  onClick={() => onInattC(true)}
-                >
-                  {t.yep}
-                </button>
-                <button
-                  type="button"
-                  className={valueInattC === false ? "chosen" : ""}
-                  onClick={() => onInattC(false)}
-                >
-                  {t.nope}
-                </button>
+                <button type="button" className={valueInattC === true ? "chosen" : ""} onClick={() => onInattC(true)}>{t.yep}</button>
+                <button type="button" className={valueInattC === false ? "chosen" : ""} onClick={() => onInattC(false)}>{t.nope}</button>
               </div>
             </div>
           </>
@@ -75,39 +50,15 @@ export function PeerQuestions({
             <div className="question-block">
               <label className="prompt">{p.hiAdult}</label>
               <div className="yesno-row">
-                <button
-                  type="button"
-                  className={valueHiA === true ? "chosen" : ""}
-                  onClick={() => onHiA(true)}
-                >
-                  {t.yep}
-                </button>
-                <button
-                  type="button"
-                  className={valueHiA === false ? "chosen" : ""}
-                  onClick={() => onHiA(false)}
-                >
-                  {t.nope}
-                </button>
+                <button type="button" className={valueHiA === true ? "chosen" : ""} onClick={() => onHiA(true)}>{t.yep}</button>
+                <button type="button" className={valueHiA === false ? "chosen" : ""} onClick={() => onHiA(false)}>{t.nope}</button>
               </div>
             </div>
             <div className="question-block">
               <label className="prompt">{p.hiChild}</label>
               <div className="yesno-row">
-                <button
-                  type="button"
-                  className={valueHiC === true ? "chosen" : ""}
-                  onClick={() => onHiC(true)}
-                >
-                  {t.yep}
-                </button>
-                <button
-                  type="button"
-                  className={valueHiC === false ? "chosen" : ""}
-                  onClick={() => onHiC(false)}
-                >
-                  {t.nope}
-                </button>
+                <button type="button" className={valueHiC === true ? "chosen" : ""} onClick={() => onHiC(true)}>{t.yep}</button>
+                <button type="button" className={valueHiC === false ? "chosen" : ""} onClick={() => onHiC(false)}>{t.nope}</button>
               </div>
             </div>
           </>

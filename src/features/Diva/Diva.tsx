@@ -1,28 +1,27 @@
+import { useLang } from "../../context/LanguageContext";
+import { INATTENTION, HYPERACTIVITY_IMPULSIVITY, INATTENTION_ES, HYPERACTIVITY_IMPULSIVITY_ES } from "./DivaContent";
+import { LangNav } from "../../components/LangNav";
 import {
-  translations,
-} from "./divaContent";
-import { LangNav} from "../../components/LangNav";
-import { PeerQuestions, 
-  SymptomStep, 
-  WelcomeStep, 
+  PeerQuestions,
+  SymptomStep,
+  WelcomeStep,
   OnsetStep,
   ImpairmentStep,
   CriterionEStep,
   ResultsSection,
-  StepActions
- } from "./components";
- import { useDivaState } from "./hooks/useDivaState";
+  StepActions,
+} from "./components";
+import { useDivaState } from "./hooks/useDivaState";
 import "../../App.css";
 
+const TOTAL_STEPS = 9;
+
 function Diva() {
+  const { lang, t } = useLang();
   const {
-    lang,
     step,
-    showResults,
     inatt,
     hi,
-    inattItems,
-    hiItems,
     moreInattAdult,
     moreInattChild,
     moreHiAdult,
@@ -32,7 +31,6 @@ function Diva() {
     criterionE,
     summary,
     setPhase,
-    setLang,
     setStep,
     setInatt,
     setHi,
@@ -46,15 +44,17 @@ function Diva() {
     canAdvance,
     next,
     back,
-} = useDivaState();
+  } = useDivaState();
 
-  const t = translations[lang];
+  const inattItems = lang === "es" ? INATTENTION_ES : INATTENTION;
+  const hiItems = lang === "es" ? HYPERACTIVITY_IMPULSIVITY_ES : HYPERACTIVITY_IMPULSIVITY;
+  const showResults = step === TOTAL_STEPS - 1;
 
   return (
     <div className="app">
-      <LangNav lang={lang} onChange={setLang} />
-      
-      <WelcomeStep t={t} step={step} />
+      <LangNav />
+
+      <WelcomeStep step={step} />
 
       {step === 1 && (
         <SymptomStep
@@ -63,7 +63,6 @@ function Diva() {
           items={inattItems}
           answers={inatt}
           onChange={(id, ph, v) => setPhase(setInatt, id, ph, v)}
-          t={t}
         />
       )}
 
@@ -78,7 +77,6 @@ function Diva() {
           onInattC={setMoreInattChild}
           onHiA={setMoreHiAdult}
           onHiC={setMoreHiChild}
-          t={t}
         />
       )}
 
@@ -89,7 +87,6 @@ function Diva() {
           items={hiItems}
           answers={hi}
           onChange={(id, ph, v) => setPhase(setHi, id, ph, v)}
-          t={t}
         />
       )}
 
@@ -104,37 +101,23 @@ function Diva() {
           onInattC={setMoreInattChild}
           onHiA={setMoreHiAdult}
           onHiC={setMoreHiChild}
-          t={t}
         />
       )}
 
       {step === 5 && (
-        <OnsetStep
-          onset={onset}
-          setOnset={setOnset}
-          t={t}
-        />
+        <OnsetStep onset={onset} setOnset={setOnset} />
       )}
 
       {step === 6 && (
-        <ImpairmentStep
-          impairment={impairment}
-          setImpairment={setImpairment}
-          t={t}
-        />
+        <ImpairmentStep impairment={impairment} setImpairment={setImpairment} />
       )}
 
       {step === 7 && (
-        <CriterionEStep
-          criterionE={criterionE}
-          setCriterionE={setCriterionE}
-          t={t}
-        />
+        <CriterionEStep criterionE={criterionE} setCriterionE={setCriterionE} />
       )}
 
       {showResults && (
         <ResultsSection
-          t={t}
           summary={summary}
           onset={onset}
           moreInattAdult={moreInattAdult}
@@ -155,17 +138,16 @@ function Diva() {
       )}
 
       {!showResults && (
-        <StepActions 
-        step={step} 
-        back={back} 
-        next={next} 
-        canAdvance={canAdvance} 
-        showResults={showResults} t={t} />
+        <StepActions
+          step={step}
+          back={back}
+          next={() => next(TOTAL_STEPS, inattItems, hiItems)}
+          canAdvance={() => canAdvance(inattItems, hiItems)}
+          showResults={showResults}
+        />
       )}
-
     </div>
   );
 }
 
 export { Diva };
-

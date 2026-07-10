@@ -1,23 +1,22 @@
 import { useState } from "react";
-import type { CriterionItem, Translations } from "../Diva.types";
+import type { CriterionItem } from "../Diva.types";
+import { useLang } from "../../../context/LanguageContext";
 import { YesNoToggle } from "./YesNoToggle";
-
 
 export function CriterionRow({
     item,
     adult,
     child,
     onChange,
-    t,
   }: {
     item: CriterionItem;
     adult: boolean | null;
     child: boolean | null;
     onChange: (id: string, phase: "adult" | "child", value: boolean) => void;
-    t: Translations;
   }) {
+    const { t } = useLang();
     const [open, setOpen] = useState(false);
-  
+
     return (
       <article className="criterion-card">
         <div className="code">{item.code}</div>
@@ -27,7 +26,6 @@ export function CriterionRow({
           <YesNoToggle
             value={adult}
             onPick={(v) => onChange(item.id, "adult", v)}
-            t={t}
           />
         </div>
         <div className="phase-row">
@@ -35,7 +33,6 @@ export function CriterionRow({
           <YesNoToggle
             value={child}
             onPick={(v) => onChange(item.id, "child", v)}
-            t={t}
           />
         </div>
         <button

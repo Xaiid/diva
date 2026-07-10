@@ -1,10 +1,10 @@
+import { LangProvider } from "./context/LanguageContext";
 import { Diva } from "./components";
 
 export default function App() {
-
   return (
-    <div className="app">
+    <LangProvider>
       <Diva />
-    </div>
+    </LangProvider>
   );
 }

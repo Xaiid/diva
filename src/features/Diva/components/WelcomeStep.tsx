@@ -1,7 +1,8 @@
-import type { Translations } from "../Diva.types";
+import { useLang } from "../../../context/LanguageContext";
 import { StepNav } from "./StepNav";
 
-export function WelcomeStep({ t, step }: { t: Translations, step: number }) {
+export function WelcomeStep({ step }: { step: number }) {
+  const { t } = useLang();
   const d = t.disclaimer;
   const steps = t.steps;
   return (
@@ -28,7 +29,6 @@ export function WelcomeStep({ t, step }: { t: Translations, step: number }) {
             {d.p2Before} <strong>{d.p2Adult}</strong> {d.p2Mid}{" "}
             <strong>{d.p2Child}</strong> {d.p2After}
           </p>
-
         </div>
       )}
 
@@ -40,7 +40,6 @@ export function WelcomeStep({ t, step }: { t: Translations, step: number }) {
           <p className="section-hint">{t.intro.hint}</p>
         </section>
       )}
-
     </>
   );
 }

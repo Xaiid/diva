@@ -1,35 +1,25 @@
-import { useState, type Dispatch, type SetStateAction } from "react";
-import { useMemo } from "react";
+import { useState, type Dispatch, type SetStateAction, useMemo } from "react";
 import { CriterionItem } from "../Diva.types";
 import { OnsetAnswers, PhaseAnswers, ImpairmentAnswers, CriterionEAnswers, buildSummary, countPresent } from "../DivaScoring";
-import { INATTENTION, HYPERACTIVITY_IMPULSIVITY, INATTENTION_ES, HYPERACTIVITY_IMPULSIVITY_ES } from "../divaContent";
-import { translations } from "../divaContent";
-import { Lang } from "../../../components/LangNav/LangNav.types";
+import { INATTENTION, HYPERACTIVITY_IMPULSIVITY } from "../DivaContent";
+
+export function emptyPhase(items: CriterionItem[]): PhaseAnswers {
+    const o: PhaseAnswers = {};
+    for (const i of items) {
+        o[i.id] = { adult: null, child: null };
+    }
+    return o;
+}
+
+function phaseComplete(answers: PhaseAnswers, items: CriterionItem[]): boolean {
+    return items.every(
+        (i) =>
+            answers[i.id]?.adult !== null &&
+            answers[i.id]?.child !== null
+    );
+}
 
 export function useDivaState() {
-
-    function emptyPhase(items: CriterionItem[]): PhaseAnswers {
-        const o: PhaseAnswers = {};
-        for (const i of items) {
-            o[i.id] = { adult: null, child: null };
-        }
-        return o;
-    }
-
-    function phaseComplete(answers: PhaseAnswers, items: CriterionItem[]): boolean {
-        return items.every(
-            (i) =>
-                answers[i.id]?.adult !== null &&
-                answers[i.id]?.child !== null
-        );
-    }
-
-    const [lang, setLang] = useState<Lang>("en");
-
-    const inattItems = lang === "es" ? INATTENTION_ES : INATTENTION;
-    const hiItems = lang === "es" ? HYPERACTIVITY_IMPULSIVITY_ES : HYPERACTIVITY_IMPULSIVITY;
-
-    const STEPS = translations.en.steps;
     const [step, setStep] = useState(0);
     const [inatt, setInatt] = useState(() => emptyPhase(INATTENTION));
     const [hi, setHi] = useState(() => emptyPhase(HYPERACTIVITY_IMPULSIVITY));
@@ -53,9 +43,6 @@ export function useDivaState() {
         betterExplainedByOtherDisorder: null,
     });
 
-    const inattComplete = phaseComplete(inatt, inattItems);
-    const hiComplete = phaseComplete(hi, hiItems);
-
     const summary = useMemo(() => {
         const ic = countPresent(INATTENTION, inatt, "child");
         const ia = countPresent(INATTENTION, inatt, "adult");
@@ -76,40 +63,25 @@ export function useDivaState() {
         }));
     }
 
-    function peerInattComplete() {
-        return moreInattAdult !== null && moreInattChild !== null;
-    }
-    function peerHiComplete() {
-        return moreHiAdult !== null && moreHiChild !== null;
-    }
-
-    function onsetComplete() {
-        return onset.lifelongPattern !== null;
-    }
-
-    function impairmentComplete() {
-        return (
-            impairment.adultTwoOrMoreDomains !== null &&
-            impairment.childTwoOrMoreDomains !== null
-        );
-    }
-
-    function canAdvance(): boolean {
+    function canAdvance(inattItems: CriterionItem[], hiItems: CriterionItem[]): boolean {
         switch (step) {
             case 0:
                 return true;
             case 1:
-                return inattComplete;
+                return phaseComplete(inatt, inattItems);
             case 2:
-                return peerInattComplete();
+                return moreInattAdult !== null && moreInattChild !== null;
             case 3:
-                return hiComplete;
+                return phaseComplete(hi, hiItems);
             case 4:
-                return peerHiComplete();
+                return moreHiAdult !== null && moreHiChild !== null;
             case 5:
-                return onsetComplete();
+                return onset.lifelongPattern !== null;
             case 6:
-                return impairmentComplete();
+                return (
+                    impairment.adultTwoOrMoreDomains !== null &&
+                    impairment.childTwoOrMoreDomains !== null
+                );
             case 7:
                 return criterionE.betterExplainedByOtherDisorder !== null;
             default:
@@ -117,23 +89,19 @@ export function useDivaState() {
         }
     }
 
-    function next() {
-        if (!canAdvance()) return;
-        setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    function next(totalSteps: number, inattItems: CriterionItem[], hiItems: CriterionItem[]) {
+        if (!canAdvance(inattItems, hiItems)) return;
+        setStep((s) => Math.min(s + 1, totalSteps - 1));
     }
+
     function back() {
         setStep((s) => Math.max(s - 1, 0));
     }
-    const showResults = step === STEPS.length - 1;
 
     return {
-        lang,
         step,
-        showResults,
         inatt,
         hi,
-        inattItems,
-        hiItems,
         moreInattAdult,
         moreInattChild,
         moreHiAdult,
@@ -141,12 +109,8 @@ export function useDivaState() {
         onset,
         impairment,
         criterionE,
-        inattComplete,
-        hiComplete,
         summary,
-        emptyPhase,
         setPhase,
-        setLang,
         setStep,
         setInatt,
         setHi,

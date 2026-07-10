@@ -1,5 +1,6 @@
-import type { CriterionItem, Translations } from "../Diva.types";
-import type { PhaseAnswers } from "../DivaScoring.ts";
+import type { CriterionItem } from "../Diva.types";
+import type { PhaseAnswers } from "../DivaScoring";
+import { useLang } from "../../../context/LanguageContext";
 import { CriterionRow } from "./CriterionRow";
 
 export function SymptomStep({
@@ -8,15 +9,14 @@ export function SymptomStep({
     items,
     answers,
     onChange,
-    t,
   }: {
     title: string;
     hint: string;
     items: CriterionItem[];
     answers: PhaseAnswers;
     onChange: (id: string, phase: "adult" | "child", value: boolean) => void;
-    t: Translations;
   }) {
+    const { t } = useLang();
     return (
       <>
         <h2 className="section-title">{title}</h2>
@@ -31,7 +31,6 @@ export function SymptomStep({
             adult={answers[item.id]?.adult ?? null}
             child={answers[item.id]?.child ?? null}
             onChange={onChange}
-            t={t}
           />
         ))}
       </>

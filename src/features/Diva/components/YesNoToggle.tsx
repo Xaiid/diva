@@ -1,14 +1,13 @@
-import type { Translations } from "../Diva.types";
+import { useLang } from "../../../context/LanguageContext";
 
 export function YesNoToggle({
     value,
     onPick,
-    t,
   }: {
     value: boolean | null;
     onPick: (v: boolean) => void;
-    t: Translations;
   }) {
+    const { t } = useLang();
     return (
       <div className="toggle-group">
         <button
