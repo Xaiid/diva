@@ -7,3 +7,5 @@ export * from "./WelcomeStep";
 export * from "./OnsetStep";
 export * from "./ImpairmentStep";
 export * from "./CriterionEStep";
+export * from "./ResultsSection";
+export * from "./StepActions";

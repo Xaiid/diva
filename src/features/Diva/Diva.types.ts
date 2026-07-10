@@ -1,4 +1,4 @@
-import { translations } from "../../data/divaContent";
+import { translations } from "./divaContent";
 
 export type CriterionItem = {
   id: string;
@@ -7,4 +7,5 @@ export type CriterionItem = {
   adultExamples: string[];
   childExamples: string[];
 };
+
 export type Translations =  typeof translations.en;

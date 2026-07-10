@@ -1,5 +1,5 @@
 import { type Translations } from "../Diva.types";
-import { type ImpairmentAnswers } from "../../../scoring";
+import { type ImpairmentAnswers } from "../DivaScoring";
 import { Dispatch, SetStateAction } from "react";
 
 export function ImpairmentStep({

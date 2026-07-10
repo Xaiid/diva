@@ -1,5 +1,5 @@
 import { type Translations } from "../Diva.types";
-import { type OnsetAnswers } from "../../../scoring";
+import { type OnsetAnswers } from "../DivaScoring";
 import { Dispatch, SetStateAction } from "react";
 
 export function OnsetStep({ 

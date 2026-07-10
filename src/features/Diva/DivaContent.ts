@@ -1,4 +1,4 @@
-import { CriterionItem } from "../features/Diva/Diva.types";
+import { CriterionItem } from "./Diva.types";
 /** English wording aligned with DIVA 2.0 / DSM-IV-TR criteria (from source interview structure). */  
 
   export const translations = {

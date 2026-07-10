@@ -1,5 +1,5 @@
 import { type Translations } from "../Diva.types";
-import { type CriterionEAnswers } from "../../../scoring";
+import { type CriterionEAnswers } from "../DivaScoring";
 import { Dispatch, SetStateAction } from "react";
 
 export function CriterionEStep({

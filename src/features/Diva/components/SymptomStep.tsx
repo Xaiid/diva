@@ -1,5 +1,5 @@
 import type { CriterionItem, Translations } from "../Diva.types";
-import type { PhaseAnswers } from "../../../scoring.ts";
+import type { PhaseAnswers } from "../DivaScoring.ts";
 import { CriterionRow } from "./CriterionRow";
 
 export function SymptomStep({
