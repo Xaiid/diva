@@ -114,6 +114,8 @@ import { CriterionItem } from "./Diva.types";
         lifelongNoNote: "You wrote:",
         lifelongNoEnd:
           "Totally normal \u2014 clinicians dig into this more gently in person.",
+        focusGroupTitle: "Focus stuff",
+        hiGroupTitle: "Buzzy / impulsive",
         focusKid: "Focus stuff \u2014 kid era",
         focusAdult: "Focus stuff \u2014 grown-up era",
         buzzyKid: "Buzzy / impulsive \u2014 kid era",
@@ -202,8 +204,8 @@ import { CriterionItem } from "./Diva.types";
       back: "Atr\u00e1s",
       clearFresh: "Borrar y empezar de nuevo",
       tapEverything: "Responde todo en esta p\u00e1gina antes de continuar.",
-      phaseAdult: "T\u00fa adulto/a (~\u00faltimos 6+ meses)",
-      phaseChild: "T\u00fa de ni\u00f1o/a (5\u201312 a\u00f1os)",
+      phaseAdult: "Adultez (~\u00faltimos 6+ meses)",
+      phaseChild: "Infacia (5\u201312 a\u00f1os)",
       hideExamples: "Ocultar ejemplos",
       peekExamples: "Ver ejemplos de conductas \u2728",
       adultExamplesLabel: "Ejemplos de adulto",
@@ -273,6 +275,8 @@ import { CriterionItem } from "./Diva.types";
         lifelongNoNote: "Escribiste:",
         lifelongNoEnd:
           "Totalmente normal \u2014 los cl\u00ednicos profundizan en esto con m\u00e1s calma en persona.",
+        focusGroupTitle: "Atenci\u00f3n",
+        hiGroupTitle: "Inquietud / impulsividad",
         focusKid: "Atenci\u00f3n \u2014 \u00e9poca infantil",
         focusAdult: "Atenci\u00f3n \u2014 \u00e9poca adulta",
         buzzyKid: "Inquietud / impulsividad \u2014 \u00e9poca infantil",

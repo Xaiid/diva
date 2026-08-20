@@ -3,6 +3,7 @@ import { useLang } from "../../../context/LanguageContext";
 import { INATTENTION, HYPERACTIVITY_IMPULSIVITY } from "../DivaContent";
 import { CriterionEAnswers, ImpairmentAnswers, OnsetAnswers, PhaseAnswers, ScoringSummary, THRESHOLD_ADULT_FORM, THRESHOLD_ADULT_RESEARCH, THRESHOLD_CHILD } from "../DivaScoring";
 import { emptyPhase } from "../hooks/useDivaState";
+import { ScoreRow } from "./ScoreRow";
 
 function markChar(ok: boolean | null, invert = false): string {
     if (ok === null) return "—";
@@ -78,34 +79,28 @@ export function ResultsSection({
                 )}
             </div>
 
-            <div className="results-grid two" style={{ marginBottom: "1rem" }}>
-                <div className="stat-card">
-                    <h3>{r.focusKid}</h3>
-                    <div className="big">{summary.inattChild} / 9</div>
-                    <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                        {r.kidCutoff}{THRESHOLD_CHILD}{r.inDomain}
-                    </p>
+            <div className="domain-groups">
+                <div className="stat-card domain-group">
+                    <h3 className="domain-group-title">{r.focusGroupTitle}</h3>
+                    <ScoreRow
+                        label={t.phaseChild}
+                        count={summary.inattChild}
+                    />
+                    <ScoreRow
+                        label={t.phaseAdult}
+                        count={summary.inattAdult}
+                    />
                 </div>
-                <div className="stat-card">
-                    <h3>{r.focusAdult}</h3>
-                    <div className="big">{summary.inattAdult} / 9</div>
-                    <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                        {r.adultCutoffPre}{THRESHOLD_ADULT_FORM}{r.adultCutoffSome}{THRESHOLD_ADULT_RESEARCH}
-                    </p>
-                </div>
-                <div className="stat-card">
-                    <h3>{r.buzzyKid}</h3>
-                    <div className="big">{summary.hiChild} / 9</div>
-                    <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                        {r.buzzyKidCutoff}{THRESHOLD_CHILD}
-                    </p>
-                </div>
-                <div className="stat-card">
-                    <h3>{r.buzzyAdult}</h3>
-                    <div className="big">{summary.hiAdult} / 9</div>
-                    <p style={{ margin: "0.35rem 0 0", fontSize: "0.85rem", color: "var(--muted)" }}>
-                        {r.buzzyAdultCutoffPre}{THRESHOLD_ADULT_FORM}{r.buzzyAdultResearch}{THRESHOLD_ADULT_RESEARCH}
-                    </p>
+                <div className="stat-card domain-group">
+                    <h3 className="domain-group-title">{r.hiGroupTitle}</h3>
+                    <ScoreRow
+                        label={t.phaseChild}
+                        count={summary.hiChild}
+                    />
+                    <ScoreRow
+                        label={t.phaseAdult}
+                        count={summary.hiAdult}
+                    />
                 </div>
             </div>
 

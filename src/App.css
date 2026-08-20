@@ -419,3 +419,72 @@ h2.section-title {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ── Domain score groups ──────────────────────────────────────────────── */
+
+.domain-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.domain-group-title {
+  margin: 0 0 0.9rem;
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.domain-score-row {
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--surface);
+}
+
+.domain-score-row:first-of-type {
+  padding-top: 0;
+  border-top: none;
+}
+
+.domain-score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+
+.domain-score-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.domain-score-count {
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+
+.score-bar-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+  position: relative;
+}
+
+.score-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease, background 0.5s ease;
+  min-width: 0;
+}
+
+.domain-cutoff-note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
